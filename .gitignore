@@ -1,0 +1,7 @@
+a.out
+*.o
+lemipc
+test
+*.d
+libft.a
+libftasm.a
