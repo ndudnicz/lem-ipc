@@ -24,5 +24,6 @@
 # endif
 
 # define SHM_SIZE	(BOARD_SIZE * BOARD_SIZE)
+# define SHM_FLAG	(IPC_CREAT)
 
 #endif

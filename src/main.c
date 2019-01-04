@@ -19,15 +19,37 @@
 #include "libftasm.h"
 #include "shm_config.h"
 #include "error.h"
+#include "mylimits.h"
 
-int		main(int ac, char **av)
+static t_s32	valid_team_number(char const *const s)
 {
-	t_s32 const	shmflg = 0;
+	t_u32	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isdigit(s[i]) == 0)
+		{
+			return (-1);
+		}
+		i++;
+	}
+	return (i > 5 || ft_atoi(s) > USHORTMAX ? -1 : 0);
+}
+
+int				main(int ac, char **av)
+{
 	t_s32		shmid;
 	size_t		result;
 
+	if (ac != 2 || valid_team_number(av[1]) < 0)
+	{
+		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));
+	}
 	if (__builtin_mul_overflow(BOARD_SIZE, BOARD_SIZE, &result))
+	{
 		exit(ft_error_ret("Error: ", BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE));
-	shmid = shmget(SHM_KEY, SHM_SIZE, shmflg);
+	}
+	shmid = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG);
 	return (0);
 }
