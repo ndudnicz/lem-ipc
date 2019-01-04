@@ -14,7 +14,9 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h> //
+#include <errno.h> //
+#include <string.h> //
 
 #include "libftasm.h"
 #include "shm_config.h"
@@ -50,6 +52,9 @@ int				main(int ac, char **av)
 	{
 		exit(ft_error_ret("Error: ", BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE));
 	}
-	shmid = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG);
+	if ((shmid = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG)) < 0)
+	{
+		lets_play();
+	}
 	return (0);
 }

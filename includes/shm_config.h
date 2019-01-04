@@ -17,7 +17,7 @@
 # include "config.h"
 # include "error.h"
 
-# define SHM_KEY	0x00e1d2f3
+# define SHM_KEY	0x00e1d2f4
 
 # if BOARD_SIZE <= 0
 #  error BOARD_SIZE wrong value.
