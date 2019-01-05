@@ -22,6 +22,7 @@
 #include "shm_config.h"
 #include "error.h"
 #include "mylimits.h"
+#include "player.h"
 
 static t_s32	valid_team_number(char const *const s)
 {
@@ -43,8 +44,9 @@ int				main(int ac, char **av)
 {
 	t_s32		shmid;
 	size_t		result;
+	t_player	player;
 
-	if (ac != 2 || valid_team_number(av[1]) < 0)
+	if (ac != 2 || (player.team = valid_team_number(av[1])) < 0)
 	{
 		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));
 	}
@@ -58,7 +60,9 @@ int				main(int ac, char **av)
 	}
 	else
 	{
-
+		// return (lets_play(player, shmid));
+		// lets_play(player, shmid);
+		shmctl(shmid, IPC_RMID, NULL);
 		return (0);
 	}
 }
