@@ -24,6 +24,7 @@
 # endif
 
 # define SHM_SIZE	(BOARD_SIZE * BOARD_SIZE)
-# define SHM_FLAG	(IPC_CREAT)
+# define SHM_PERM	0660
+# define SHM_FLAG	(IPC_CREAT | SHM_PERM)
 
 #endif

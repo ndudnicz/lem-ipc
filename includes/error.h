@@ -5,6 +5,7 @@
 
 # define BOARD_SIZE_TOO_BIG "BOARD_SIZE too big.\n"
 # define INVALID_TEAM_NUMBER "Invalid team number.\n"
+# define FAIL_SHMGET "Can't shmget().\n"
 
 t_s32	ft_error_ret(
 	char const *s1,

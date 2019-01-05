@@ -25,7 +25,7 @@
 
 static t_s32	valid_team_number(char const *const s)
 {
-	t_u32	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -36,7 +36,7 @@ static t_s32	valid_team_number(char const *const s)
 		}
 		i++;
 	}
-	return (i > 5 || ft_atoi(s) > USHORTMAX ? -1 : 0);
+	return (i > 1 || ft_atoi(s) > 9 ? -1 : 0);
 }
 
 int				main(int ac, char **av)
@@ -54,7 +54,11 @@ int				main(int ac, char **av)
 	}
 	if ((shmid = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG)) < 0)
 	{
-		lets_play();
+		exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
 	}
-	return (0);
+	else
+	{
+
+		return (0);
+	}
 }
