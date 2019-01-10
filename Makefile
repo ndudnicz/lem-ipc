@@ -23,6 +23,7 @@ main.c \
 error.c \
 init_ipcs.c \
 clean_ipcs.c \
+check_sides.c \
 
 # OBJECTS LIST ================================================================#
 

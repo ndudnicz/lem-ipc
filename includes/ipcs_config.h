@@ -22,17 +22,6 @@
 
 # define SHM_KEY	0x00e1d2f3
 
-# if BOARD_SIZE <= 0
-#  error BOARD_SIZE wrong value.
-# elseif BOARD_SIZE > 2000
-#  error BOARD_SIZE too high.
-# endif
-
-typedef struct	s_board
-{
-	t_u32	b[BOARD_SIZE][BOARD_SIZE];
-}				t_board;
-
 # define SHM_SIZE	(sizeof(t_board))
 # define SHM_PERM	0660
 # define SHM_FLAG	(IPC_CREAT | SHM_PERM)
