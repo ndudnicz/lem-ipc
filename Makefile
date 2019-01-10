@@ -21,6 +21,8 @@ PATH_INCLUDES_LIBFT = libft/includes
 SRC = \
 main.c \
 error.c \
+init_ipcs.c \
+clean_ipcs.c \
 
 # OBJECTS LIST ================================================================#
 

@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 #include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
 #include <stdlib.h>
 #include <stdio.h> //
 #include <errno.h> //
 #include <string.h> //
 
 #include "libftasm.h"
-#include "shm_config.h"
+#include "ipcs_config.h"
 #include "error.h"
 #include "mylimits.h"
 #include "player.h"
+#include "init_ipcs.h"
 
 static t_s32	valid_team_number(char const *const s)
 {
@@ -42,7 +41,6 @@ static t_s32	valid_team_number(char const *const s)
 
 int				main(int ac, char **av)
 {
-	t_s32		shmid;
 	size_t		result;
 	t_player	player;
 
@@ -50,19 +48,14 @@ int				main(int ac, char **av)
 	{
 		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));
 	}
-	if (__builtin_mul_overflow(BOARD_SIZE, BOARD_SIZE, &result))
+	else if (__builtin_mul_overflow(BOARD_SIZE, BOARD_SIZE, &result))
 	{
 		exit(ft_error_ret("Error: ", BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE));
 	}
-	if ((shmid = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG)) < 0)
-	{
-		exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
-	}
 	else
 	{
-		// return (lets_play(player, shmid));
-		// lets_play(player, shmid);
-		shmctl(shmid, IPC_RMID, NULL);
+		init_ipcs(&player);
+		clean_ipcs(&player);
 		return (0);
 	}
 }

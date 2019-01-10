@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shm_config.h                                       :+:      :+:    :+:   */
+/*   ipcs_config.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndudnicz <ndudnicz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,44 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHM_CONFIG_H
-# define SHM_CONFIG_H
+#ifndef IPCS_CONFIG_H
+# define IPCS_CONFIG_H
+
+# include <sys/ipc.h>
+# include <sys/shm.h>
 
 # include "misc.h"
 # include "config.h"
 # include "error.h"
 
-# define SHM_KEY	0x00e1d2f4
+# define SHM_KEY	0x00e1d2f3
 
 # if BOARD_SIZE <= 0
 #  error BOARD_SIZE wrong value.
+# elseif BOARD_SIZE > 2000
+#  error BOARD_SIZE too high.
 # endif
 
-# define SHM_SIZE	(BOARD_SIZE * BOARD_SIZE)
+typedef struct	s_board
+{
+	t_u32	b[BOARD_SIZE][BOARD_SIZE];
+}				t_board;
+
+# define SHM_SIZE	(sizeof(t_board))
 # define SHM_PERM	0660
 # define SHM_FLAG	(IPC_CREAT | SHM_PERM)
+
+# define SEM_PERM	0660
+# define SEM_FLAG	(IPC_CREAT | SEM_PERM)
+
+# define MSG_PERM	0660
+# define MSG_FLAG	(IPC_CREAT | MSG_PERM)
+
+typedef struct	s_ipcs_config
+{
+	t_s32	shmid;
+	t_s32	semid;
+	t_s32	msgid;
+}				t_ipcs_config;
 
 #endif
