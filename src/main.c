@@ -22,6 +22,8 @@
 #include "player.h"
 #include "init_ipcs.h"
 #include "signal_handler.h"
+#include "play.h"
+#include "clean_ipcs.h"
 
 static t_s32	valid_team_number(char const *const s)
 {

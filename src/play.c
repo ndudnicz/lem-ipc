@@ -18,6 +18,8 @@
 #include "player.h"
 #include "check_sides.h"
 #include "mylimits.h"
+#include "libftasm.h"
+#include "print.h"
 
 static t_s32	release_sem(
 t_player *p,

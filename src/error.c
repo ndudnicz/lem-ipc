@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "error.h"
 #include "mystdint.h"
+#include "libftasm.h"
 
 t_s32	ft_error_ret(
 	char const *s1,

@@ -15,6 +15,7 @@
 #include "config.h"
 #include "board.h"
 #include "mystdint.h"
+#include "libftasm.h"
 
 t_s32	print_board(
 t_board *board

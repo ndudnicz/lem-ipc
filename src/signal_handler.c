@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/shm.h>
-#include <sys/sem.h>
-#include <sys/msg.h>
 #include <stdlib.h>
 
 #include "init_ipcs.h"
