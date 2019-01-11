@@ -16,14 +16,62 @@
 #include <sys/msg.h>
 
 #include "board.h"
+#include "config.h"
 #include "error.h"
 #include "ipcs_config.h"
 #include "play.h"
+#include "libftasm.h"
 
-t_s32			init_ipcs(
-	t_player *p
+static t_s32	fill_board(
+t_board *board
 )
 {
+	t_s32			x;
+	t_s32			y;
+
+	y = 0;
+	board->n_player = 0;
+	while (y < BOARD_SIZE)
+	{
+		x = 0;
+		while (x < BOARD_SIZE)
+		{
+			board->b[y][x] = -1;
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+static t_s32	init_board(
+t_player *p
+)
+{
+	struct sembuf	sem;
+	t_board			*board;
+
+	ft_memset(&sem, 0, sizeof(struct sembuf));
+	sem.sem_op = -1;
+	semop(p->ipcs.semid, &sem, 1);
+	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
+		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
+	else
+	{
+		(void)fill_board(board);
+		shmdt(board);
+		sem.sem_op = 1;
+		semop(p->ipcs.semid, &sem, 1);
+	}
+	return (0);
+}
+
+t_s32			init_ipcs(
+t_player *p
+)
+{
+	t_s32 const	first = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG_F);
+
 	if ((p->ipcs.shmid = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG)) < 0)
 	{
 		exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
@@ -38,6 +86,13 @@ t_s32			init_ipcs(
 	}
 	else
 	{
-		return (0);
+		if (first != -1)
+		{
+			return (init_board(p));
+		}
+		else
+		{
+			return (0);
+		}
 	}
 }

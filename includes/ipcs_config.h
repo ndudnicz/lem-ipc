@@ -25,6 +25,7 @@
 # define SHM_SIZE	(sizeof(t_board))
 # define SHM_PERM	0660
 # define SHM_FLAG	(IPC_CREAT | SHM_PERM)
+# define SHM_FLAG_F	(IPC_CREAT | SHM_PERM | IPC_EXCL)
 
 # define SEM_PERM	0660
 # define SEM_FLAG	(IPC_CREAT | SEM_PERM)
