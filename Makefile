@@ -25,6 +25,8 @@ init_ipcs.c \
 clean_ipcs.c \
 check_sides.c \
 play.c \
+print.c \
+signal_handler.c \
 
 # OBJECTS LIST ================================================================#
 

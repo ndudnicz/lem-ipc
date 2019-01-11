@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   misc.h                                             :+:      :+:    :+:   */
+/*   play.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndudnicz <ndudnicz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/11 16:16:07 by ndudnicz          #+#    #+#             */
-/*   Updated: 2019/01/11 16:16:07 by ndudnicz         ###   ########.fr       */
+/*   Created: 2019/01/11 16:15:37 by ndudnicz          #+#    #+#             */
+/*   Updated: 2019/01/11 16:15:39 by ndudnicz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MISC_H
-# define MISC_H
+#ifndef PLAY_H
+# define PLAY_H
 
+# include "player.h"
+
+t_s32	lets_play(
+t_player *p
+);
 
 #endif

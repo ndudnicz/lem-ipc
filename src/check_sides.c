@@ -1,9 +1,21 @@
-# include "player.h"
-# include "board.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_sides.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndudnicz <ndudnicz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/11 16:11:13 by ndudnicz          #+#    #+#             */
+/*   Updated: 2019/01/11 16:11:14 by ndudnicz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "player.h"
+#include "board.h"
 
 t_u32	check_left(
-	t_player *p,
-	t_board *board
+t_player *p,
+t_board *board
 )
 {
 	if (p->x > 0)
@@ -17,8 +29,8 @@ t_u32	check_left(
 }
 
 t_u32	check_right(
-	t_player *p,
-	t_board *board
+t_player *p,
+t_board *board
 )
 {
 	if (p->x < BOARD_SIZE)
@@ -32,8 +44,8 @@ t_u32	check_right(
 }
 
 t_u32	check_up(
-	t_player *p,
-	t_board *board
+t_player *p,
+t_board *board
 )
 {
 	if (p->x > 0)
@@ -47,8 +59,8 @@ t_u32	check_up(
 }
 
 t_u32	check_down(
-	t_player *p,
-	t_board *board
+t_player *p,
+t_board *board
 )
 {
 	if (p->x < BOARD_SIZE)

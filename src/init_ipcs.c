@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_ipcs.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndudnicz <ndudnicz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/11 16:13:13 by ndudnicz          #+#    #+#             */
+/*   Updated: 2019/01/11 16:13:14 by ndudnicz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 
 #include "board.h"
 #include "error.h"
 #include "ipcs_config.h"
-#include "player.h"
+#include "play.h"
 
 t_s32			init_ipcs(
 	t_player *p

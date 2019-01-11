@@ -15,6 +15,8 @@
 #include <stdio.h> //
 #include <errno.h> //
 #include <string.h> //
+#include <signal.h>
+#include <time.h>
 
 #include "libftasm.h"
 #include "ipcs_config.h"
@@ -22,6 +24,7 @@
 #include "mylimits.h"
 #include "player.h"
 #include "init_ipcs.h"
+#include "signal_handler.h"
 
 static t_s32	valid_team_number(char const *const s)
 {
@@ -36,7 +39,7 @@ static t_s32	valid_team_number(char const *const s)
 		}
 		i++;
 	}
-	return (i > 1 || ft_atoi(s) > 9 ? -1 : 0);
+	return (i > 5 || ft_atoi(s) > USHORTMAX ? -1 : 0);
 }
 
 int				main(int ac, char **av)
@@ -44,6 +47,7 @@ int				main(int ac, char **av)
 	size_t		result;
 	t_player	player;
 
+	player.new = 1;
 	if (ac != 2 || (int)(player.team = valid_team_number(av[1])) < 0)
 	{
 		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));
@@ -54,7 +58,10 @@ int				main(int ac, char **av)
 	}
 	else
 	{
+		srand(time(NULL));
+		signal(SIGINT, signal_handler);
 		init_ipcs(&player);
+		lets_play(&player);
 		clean_ipcs(&player);
 		return (0);
 	}

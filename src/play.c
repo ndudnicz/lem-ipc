@@ -19,6 +19,18 @@
 #include "check_sides.h"
 #include "mylimits.h"
 
+static t_s32	release_sem(
+t_player *p,
+t_board *board,
+struct sembuf *sem
+)
+{
+	shmdt(board);
+	sem->sem_op = 1;
+	semop(p->ipcs.semid, sem, 1);
+	return (0);
+}
+
 static t_s32	init_h(
 t_u8 *h,
 t_u32 *sides
@@ -40,7 +52,7 @@ t_player *p,
 t_board *board
 )
 {
-	t_u8		h[USHORTMAX];
+	t_u8		h[10];
 	t_u32 const	sides[4] = {
 		check_left(p, board),
 		check_right(p, board),
@@ -69,21 +81,23 @@ t_player *p
 
 	while (1)
 	{
-		ft_bzero(&sem);
+		ft_memset(&sem, 0, sizeof(struct sembuf));
 		sem.sem_op = -1;
 		semop(p->ipcs.semid, &sem, 1);
-		board = (t_board *)shmat(p->ipcs.semid, NULL, 0);
-		if ((int)(board) == -1)
-		{
+		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 			return (-1);
-		}
 		else
 		{
-			shmdt(board);
-			sem.sem_op = 1;
-			semop(p->ipcs.semid, &sem, 1);
+			board->n_player += p->new ? 1 : 0;
+			p->new = 0;
+			(void)print_board(board);
 			if (am_i_dead(p, board))
-				return (0);
+			{
+				board->n_player--;
+				return (release_sem(p, board, &sem));
+			}
+			else
+				release_sem(p, board, &sem);
 		}
 	}
 	return (0);

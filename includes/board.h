@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   board.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndudnicz <ndudnicz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/11 16:14:18 by ndudnicz          #+#    #+#             */
+/*   Updated: 2019/01/11 16:14:20 by ndudnicz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BOARD_H
 # define BOARD_H
 
@@ -12,7 +24,8 @@
 
 typedef struct	s_board
 {
-	t_u32	b[BOARD_SIZE][BOARD_SIZE];
+	t_u16	n_player;
+	t_s32	b[BOARD_SIZE][BOARD_SIZE];
 }				t_board;
 
 #endif
