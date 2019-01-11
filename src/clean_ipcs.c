@@ -27,7 +27,7 @@ t_player *p
 
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 	{
-		return (-1);
+		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 	}
 	else
 	{

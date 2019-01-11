@@ -59,6 +59,7 @@ t_board *board
 		check_up(p, board),
 		check_down(p, board)
 	};
+
 	(void)init_h((t_u8*)h, (t_u32*)sides);
 	if (p->team != sides[0] && h[sides[0]] > 1)
 		return (1);
@@ -85,7 +86,7 @@ t_player *p
 		sem.sem_op = -1;
 		semop(p->ipcs.semid, &sem, 1);
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
-			return (-1);
+			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 		else
 		{
 			board->n_player += p->new ? 1 : 0;

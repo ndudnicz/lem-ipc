@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_HPP
-# define ERROR_HPP
+#ifndef ERROR_H
+# define ERROR_H
 
 # include "mystdint.h"
 
@@ -20,6 +20,7 @@
 # define FAIL_SHMGET "Can't shmget().\n"
 # define FAIL_SEMGET "Can't semget().\n"
 # define FAIL_MSGGET "Can't msgget().\n"
+# define FAIL_SHMAT "Can't shmat().\n"
 
 t_s32	ft_error_ret(
 	char const *s1,
