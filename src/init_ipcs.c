@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "mylimits.h"
+#include "board.h"
 #include "error.h"
 #include "ipcs_config.h"
 #include "player.h"

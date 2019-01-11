@@ -24,6 +24,7 @@ error.c \
 init_ipcs.c \
 clean_ipcs.c \
 check_sides.c \
+play.c \
 
 # OBJECTS LIST ================================================================#
 

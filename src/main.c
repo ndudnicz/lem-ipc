@@ -44,7 +44,7 @@ int				main(int ac, char **av)
 	size_t		result;
 	t_player	player;
 
-	if (ac != 2 || (player.team = valid_team_number(av[1])) < 0)
+	if (ac != 2 || (int)(player.team = valid_team_number(av[1])) < 0)
 	{
 		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));
 	}

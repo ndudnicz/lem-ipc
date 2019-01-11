@@ -2,6 +2,7 @@
 # define BOARD_H
 
 # include "config.h"
+# include "mystdint.h"
 
 # if BOARD_SIZE <= 0
 #  error BOARD_SIZE wrong value.

@@ -1,3 +1,6 @@
+# include "player.h"
+# include "board.h"
+
 t_u32	check_left(
 	t_player *p,
 	t_board *board
