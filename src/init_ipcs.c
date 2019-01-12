@@ -30,7 +30,7 @@ t_board *board
 	t_s32			y;
 
 	y = 0;
-	board->n_player = 0;
+	ft_memset(board, 0, sizeof(t_board));
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -48,20 +48,19 @@ static t_s32	init_board(
 t_player *p
 )
 {
-	struct sembuf	sem;
 	t_board			*board;
 
-	ft_memset(&sem, 0, sizeof(struct sembuf));
-	sem.sem_op = -1;
-	semop(p->ipcs.semid, &sem, 1);
+	ft_memset(&p->sem, 0, sizeof(struct sembuf));
+	p->sem.sem_op = -1;
+	semop(p->ipcs.semid, &p->sem, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 	else
 	{
 		(void)fill_board(board);
 		shmdt(board);
-		sem.sem_op = 1;
-		semop(p->ipcs.semid, &sem, 1);
+		p->sem.sem_op = 1;
+		semop(p->ipcs.semid, &p->sem, 1);
 	}
 	return (0);
 }

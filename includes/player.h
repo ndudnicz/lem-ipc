@@ -14,14 +14,19 @@
 # define PLAYER_H
 
 # include "ipcs_config.h"
+# include <sys/sem.h>
+
+# define P_OPT_NEW		0x01
+# define P_OPT_PRINTER	0x02
 
 typedef struct	s_player
 {
 	t_u32			team;
 	t_u16			x;
 	t_u16			y;
-	t_u8			new;
+	t_u8			opt;
 	t_ipcs_config	ipcs;
+	struct sembuf	sem;
 }				t_player;
 
 #endif

@@ -19,7 +19,6 @@
 #include "ipcs_config.h"
 #include "error.h"
 #include "mylimits.h"
-#include "player.h"
 #include "init_ipcs.h"
 #include "signal_handler.h"
 #include "play.h"
@@ -46,7 +45,7 @@ int				main(int ac, char **av)
 	size_t		result;
 	t_player	player;
 
-	player.new = 1;
+	player.opt |= P_OPT_NEW;
 	if (ac != 2 || (int)(player.team = valid_team_number(av[1])) < 0)
 	{
 		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));

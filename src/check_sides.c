@@ -33,7 +33,7 @@ t_player *p,
 t_board *board
 )
 {
-	if (p->x < BOARD_SIZE)
+	if (p->x < BOARD_SIZE - 1)
 	{
 		return (board->b[p->y][p->x + 1]);
 	}
@@ -48,7 +48,7 @@ t_player *p,
 t_board *board
 )
 {
-	if (p->x > 0)
+	if (p->y > 0)
 	{
 		return (board->b[p->y - 1][p->x]);
 	}
@@ -63,7 +63,7 @@ t_player *p,
 t_board *board
 )
 {
-	if (p->x < BOARD_SIZE)
+	if (p->y < BOARD_SIZE - 1)
 	{
 		return (board->b[p->y + 1][p->x]);
 	}

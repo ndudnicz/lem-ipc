@@ -22,8 +22,11 @@
 #  error BOARD_SIZE too high.
 # endif
 
+# define B_OPT_PRINTER	0x02
+
 typedef struct	s_board
 {
+	t_u8	opt;
 	t_u16	n_player;
 	t_s32	b[BOARD_SIZE][BOARD_SIZE];
 }				t_board;

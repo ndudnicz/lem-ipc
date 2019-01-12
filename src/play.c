@@ -23,13 +23,12 @@
 
 static t_s32	release_sem(
 t_player *p,
-t_board *board,
-struct sembuf *sem
+t_board *board
 )
 {
 	shmdt(board);
-	sem->sem_op = 1;
-	semop(p->ipcs.semid, sem, 1);
+	p->sem.sem_op = 1;
+	semop(p->ipcs.semid, &p->sem, 1);
 	return (0);
 }
 
@@ -79,28 +78,27 @@ t_s32			lets_play(
 t_player *p
 )
 {
-	struct sembuf	sem;
 	t_board			*board;
 
 	while (1)
 	{
-		ft_memset(&sem, 0, sizeof(struct sembuf));
-		sem.sem_op = -1;
-		semop(p->ipcs.semid, &sem, 1);
+		ft_memset(&p->sem, 0, sizeof(struct sembuf));
+		p->sem.sem_op = -1;
+		semop(p->ipcs.semid, &p->sem, 1);
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 		else
 		{
-			board->n_player += p->new ? 1 : 0;
-			p->new = 0;
+			board->n_player += p->opt & P_OPT_NEW ? 1 : 0;
+			p->opt &= 0xfe;
 			(void)print_board(board);
 			if (am_i_dead(p, board))
 			{
 				board->n_player--;
-				return (release_sem(p, board, &sem));
+				return (release_sem(p, board));
 			}
 			else
-				release_sem(p, board, &sem);
+				release_sem(p, board);
 		}
 	}
 	return (0);
