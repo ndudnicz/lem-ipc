@@ -15,6 +15,7 @@
 
 # include "config.h"
 # include "mystdint.h"
+# include "player.h"
 
 # if BOARD_SIZE <= 0
 #  error BOARD_SIZE wrong value.
@@ -22,7 +23,7 @@
 #  error BOARD_SIZE too high.
 # endif
 
-# define B_OPT_PRINTER	0x02
+# define B_OPT_PRINTER	P_OPT_PRINTER
 
 typedef struct	s_board
 {

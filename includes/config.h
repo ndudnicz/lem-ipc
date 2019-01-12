@@ -13,6 +13,7 @@
 #ifndef CONFIG_H
 # define CONFIG_H
 
-# define BOARD_SIZE		100
+# define BOARD_SIZE		10
+# define TURN_WAIT		4242
 
 #endif

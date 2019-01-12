@@ -12,15 +12,16 @@
 
 #include "player.h"
 #include "board.h"
+#include "mylimits.h"
 
 t_u32	check_left(
 t_player *p,
-t_board *board
+t_board *b
 )
 {
 	if (p->x > 0)
 	{
-		return (board->b[p->y][p->x - 1]);
+		return (b->b[p->y][p->x - 1] >= 0 ? b->b[p->y][p->x - 1] : SHORTMAX);
 	}
 	else
 	{
@@ -30,12 +31,12 @@ t_board *board
 
 t_u32	check_right(
 t_player *p,
-t_board *board
+t_board *b
 )
 {
 	if (p->x < BOARD_SIZE - 1)
 	{
-		return (board->b[p->y][p->x + 1]);
+		return (b->b[p->y][p->x + 1] >= 0 ? b->b[p->y][p->x + 1] : SHORTMAX);
 	}
 	else
 	{
@@ -45,12 +46,12 @@ t_board *board
 
 t_u32	check_up(
 t_player *p,
-t_board *board
+t_board *b
 )
 {
 	if (p->y > 0)
 	{
-		return (board->b[p->y - 1][p->x]);
+		return (b->b[p->y - 1][p->x] >= 0 ? b->b[p->y - 1][p->x] : SHORTMAX);
 	}
 	else
 	{
@@ -60,12 +61,12 @@ t_board *board
 
 t_u32	check_down(
 t_player *p,
-t_board *board
+t_board *b
 )
 {
 	if (p->y < BOARD_SIZE - 1)
 	{
-		return (board->b[p->y + 1][p->x]);
+		return (b->b[p->y + 1][p->x] >= 0 ? b->b[p->y + 1][p->x] : SHORTMAX);
 	}
 	else
 	{

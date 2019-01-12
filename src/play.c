@@ -12,6 +12,7 @@
 
 #include <sys/sem.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "mylimits.h"
 #include "board.h"
@@ -29,6 +30,7 @@ t_board *board
 	shmdt(board);
 	p->sem.sem_op = 1;
 	semop(p->ipcs.semid, &p->sem, 1);
+	usleep(TURN_WAIT);
 	return (0);
 }
 
@@ -53,7 +55,7 @@ t_player *p,
 t_board *board
 )
 {
-	t_u8		h[10];
+	t_u8		h[SHORTMAX + 1];
 	t_u32 const	sides[4] = {
 		check_left(p, board),
 		check_right(p, board),
@@ -62,24 +64,23 @@ t_board *board
 	};
 
 	(void)init_h((t_u8*)h, (t_u32*)sides);
-	if (p->team != sides[0] && h[sides[0]] > 1)
+	if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
 		return (1);
-	else if (p->team != sides[1] && h[sides[1]] > 1)
+	else if (sides[1] < SHORTMAX && p->team != sides[1] && h[sides[1]] > 1)
 		return (1);
-	else if (p->team != sides[2] && h[sides[2]] > 1)
+	else if (sides[2] < SHORTMAX && p->team != sides[2] && h[sides[2]] > 1)
 		return (1);
-	else if (p->team != sides[3] && h[sides[3]] > 1)
+	else if (sides[3] < SHORTMAX && p->team != sides[3] && h[sides[3]] > 1)
 		return (1);
 	else
 		return (0);
 }
 
 t_s32			lets_play(
-t_player *p
+t_player *p,
+t_board *board
 )
 {
-	t_board			*board;
-
 	while (1)
 	{
 		ft_memset(&p->sem, 0, sizeof(struct sembuf));
@@ -90,8 +91,10 @@ t_player *p
 		else
 		{
 			board->n_player += p->opt & P_OPT_NEW ? 1 : 0;
-			p->opt &= 0xfe;
-			(void)print_board(board);
+			p->opt &= (0xff ^ P_OPT_NEW);
+			if (!(board->opt & B_OPT_PRINTER))
+				(void)set_printer(p, board);
+			(void)print_board(p->opt & P_OPT_PRINTER ? board : NULL);
 			if (am_i_dead(p, board))
 			{
 				board->n_player--;

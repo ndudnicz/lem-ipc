@@ -50,7 +50,7 @@ t_player *p
 {
 	t_board			*board;
 
-	ft_memset(&p->sem, 0, sizeof(struct sembuf));
+	ft_memset(&p->sem, 0, sizeof(p->sem));
 	p->sem.sem_op = -1;
 	semop(p->ipcs.semid, &p->sem, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
@@ -69,29 +69,26 @@ t_s32			init_ipcs(
 t_player *p
 )
 {
-	t_s32 const	first = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG_F);
+	t_s32 const	first = shmget(IPCS_KEY, SHM_SIZE, SHM_FLAG_F) == -1 ? 0 : 1;
 
-	if ((p->ipcs.shmid = shmget(SHM_KEY, SHM_SIZE, SHM_FLAG)) < 0)
-	{
-		exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
-	}
-	else if ((p->ipcs.semid = semget(SHM_KEY, 1, SEM_FLAG)) < 0)
-	{
-		exit(ft_error_ret("Error: ", FAIL_SEMGET, NULL, EXIT_FAILURE));
-	}
-	else if ((p->ipcs.msgid = msgget(SHM_KEY, MSG_FLAG)) < 0)
-	{
-		exit(ft_error_ret("Error: ", FAIL_MSGGET, NULL, EXIT_FAILURE));
+	if (first == 0) {
+		if ((p->ipcs.shmid = shmget(IPCS_KEY, SHM_SIZE, SHM_PERM)) == -1)
+			exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
+		if ((p->ipcs.semid = semget(IPCS_KEY, 1, SEM_PERM)) == -1)
+			exit(ft_error_ret("Error: ", FAIL_SEMGET, NULL, EXIT_FAILURE));
+		if ((p->ipcs.msgid = msgget(IPCS_KEY, MSG_PERM)) == -1)
+			exit(ft_error_ret("Error: ", FAIL_MSGGET, NULL, EXIT_FAILURE));
+		return (0);
 	}
 	else
 	{
-		if (first != -1)
-		{
-			return (init_board(p));
-		}
-		else
-		{
-			return (0);
-		}
+		if ((p->ipcs.shmid = shmget(IPCS_KEY, SHM_SIZE, SHM_PERM)) == -1)
+			exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
+		if ((p->ipcs.semid = semget(IPCS_KEY, 1, SEM_FLAG)) == -1)
+				exit(ft_error_ret("Error: ", FAIL_SEMGET, NULL, EXIT_FAILURE));
+		if ((p->ipcs.msgid = msgget(IPCS_KEY, MSG_FLAG)) == -1)
+				exit(ft_error_ret("Error: ", FAIL_MSGGET, NULL, EXIT_FAILURE));
+		semctl(p->ipcs.semid, 0, SETVAL, 1);
+		return (init_board(p));
 	}
 }

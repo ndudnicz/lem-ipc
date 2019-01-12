@@ -15,6 +15,7 @@
 #include <signal.h>
 #include <time.h>
 
+#include "board.h"
 #include "libftasm.h"
 #include "ipcs_config.h"
 #include "error.h"
@@ -59,7 +60,7 @@ int				main(int ac, char **av)
 		srand(time(NULL));
 		signal(SIGINT, signal_handler);
 		init_ipcs(&player);
-		lets_play(&player);
+		lets_play(&player, NULL);
 		clean_ipcs(&player);
 		return (0);
 	}

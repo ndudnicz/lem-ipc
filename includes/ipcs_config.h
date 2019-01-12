@@ -16,22 +16,21 @@
 # include <sys/ipc.h>
 # include <sys/shm.h>
 
-# include "misc.h"
 # include "config.h"
 # include "error.h"
 
-# define SHM_KEY	0x00e1d2f3
+# define IPCS_KEY	0x00e1d2f5
 
 # define SHM_SIZE	(sizeof(t_board))
-# define SHM_PERM	0660
+# define SHM_PERM	0666
 # define SHM_FLAG	(IPC_CREAT | SHM_PERM)
-# define SHM_FLAG_F	(IPC_CREAT | SHM_PERM | IPC_EXCL)
+# define SHM_FLAG_F	(IPC_CREAT | IPC_EXCL | SHM_PERM)
 
-# define SEM_PERM	0660
-# define SEM_FLAG	(IPC_CREAT | SEM_PERM)
+# define SEM_PERM	0666
+# define SEM_FLAG	(IPC_CREAT | IPC_EXCL | SEM_PERM)
 
-# define MSG_PERM	0660
-# define MSG_FLAG	(IPC_CREAT | MSG_PERM)
+# define MSG_PERM	0666
+# define MSG_FLAG	(IPC_CREAT | IPC_EXCL | MSG_PERM)
 
 typedef struct	s_ipcs_config
 {

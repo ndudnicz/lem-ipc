@@ -16,7 +16,8 @@
 # include "player.h"
 
 t_s32	lets_play(
-t_player *p
+t_player *p,
+t_board *b
 );
 
 #endif
