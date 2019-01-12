@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "config.h"
 #include "board.h"
@@ -30,6 +31,7 @@ t_board *board
 	{
 		return (0);
 	}
+	printf("pid:%d\n", getpid());
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -44,8 +46,7 @@ t_board *board
 		ft_putchar('\n');
 		y++;
 	}
-	ft_putchar('\n');
-	return (0);
+	return (!ft_putchar('\n'));
 }
 
 t_s32	set_printer(

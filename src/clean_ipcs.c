@@ -43,6 +43,8 @@ t_player *p
 			semctl(p->ipcs.semid, IPC_RMID, 0);
 			msgctl(p->ipcs.msgid, IPC_RMID, 0);
 		}
+		else
+			board->n_player--;
 		return (0);
 	}
 }

@@ -47,6 +47,7 @@ int				main(int ac, char **av)
 	t_player	player;
 
 	player.opt |= P_OPT_NEW;
+	signal(SIGINT, signal_handler);
 	if (ac != 2 || (int)(player.team = valid_team_number(av[1])) < 0)
 	{
 		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));
@@ -58,7 +59,6 @@ int				main(int ac, char **av)
 	else
 	{
 		srand(time(NULL));
-		signal(SIGINT, signal_handler);
 		init_ipcs(&player);
 		lets_play(&player, NULL);
 		clean_ipcs(&player);
