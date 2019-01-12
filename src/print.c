@@ -31,7 +31,7 @@ t_board *board
 	{
 		return (0);
 	}
-	printf("pid:%d\n", getpid());
+	printf("pid:%d\n", getpid());//
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -64,17 +64,7 @@ t_player *p,
 t_board *b
 )
 {
-	ft_memset(&p->sem, 0, sizeof(p->sem));
-	p->sem.sem_op = -1;
-	semop(p->ipcs.semid, &p->sem, 1);
-	if ((int)(b = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
-		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
-	else
-	{
+	if (b->opt & B_OPT_PRINTER)
 		b->opt ^= B_OPT_PRINTER;
-		shmdt(b);
-		p->sem.sem_op = 1;
-		semop(p->ipcs.semid, &p->sem, 1);
-	}
 	return (0);
 }

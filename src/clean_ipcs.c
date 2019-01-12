@@ -33,6 +33,7 @@ t_player *p
 	}
 	else
 	{
+		printf("p->opt:%hhx\n", p->opt); //
 		if (p->opt & P_OPT_PRINTER)
 		{
 			unset_printer(p, board);
@@ -42,9 +43,10 @@ t_player *p
 			shmctl(p->ipcs.shmid, IPC_RMID, NULL);
 			semctl(p->ipcs.semid, IPC_RMID, 0);
 			msgctl(p->ipcs.msgid, IPC_RMID, 0);
+			shmdt(board);
+			p->sem.sem_op = 1;
+			semop(p->ipcs.semid, &p->sem, 1);
 		}
-		else
-			board->n_player--;
 		return (0);
 	}
 }
