@@ -13,7 +13,7 @@
 #ifndef PLAYER_H
 # define PLAYER_H
 
-# include "ipcs_config.h"
+# include "config_ipcs.h"
 # include <sys/sem.h>
 
 # define P_OPT_NEW		0x01
@@ -28,5 +28,9 @@ typedef struct	s_player
 	t_ipcs_config	ipcs;
 	struct sembuf	sem;
 }				t_player;
+
+t_s32	player_suicide(
+t_player *p
+);
 
 #endif

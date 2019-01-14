@@ -38,7 +38,7 @@ t_player *p
 		{
 			unset_printer(p, board);
 		}
-		if (board->n_player < 2)
+		if (board->n_player < 1)
 		{
 			shmctl(p->ipcs.shmid, IPC_RMID, NULL);
 			semctl(p->ipcs.semid, IPC_RMID, 0);

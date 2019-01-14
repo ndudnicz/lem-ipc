@@ -14,6 +14,7 @@
 
 #include "init_ipcs.h"
 #include "clean_ipcs.h"
+#include "player.h"
 
 t_s32	signal_handler(
 int sig
@@ -24,6 +25,7 @@ int sig
 	if (sig == SIGINT)
 	{
 		init_ipcs(&p);
+		player_suicide(&p);
 		clean_ipcs(&p);
 		exit(0);
 	}

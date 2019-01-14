@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IPCS_CONFIG_H
-# define IPCS_CONFIG_H
+#ifndef CONFIG_IPCS_H
+# define CONFIG_IPCS_H
 
 # include <sys/ipc.h>
 # include <sys/shm.h>
@@ -19,7 +19,7 @@
 # include "config.h"
 # include "error.h"
 
-# define IPCS_KEY	0x00e1d2f0
+# define IPCS_KEY	0x00e1d2f1
 
 # define SHM_SIZE	(sizeof(t_board))
 # define SHM_PERM	0666

@@ -18,7 +18,7 @@
 #include "board.h"
 #include "config.h"
 #include "error.h"
-#include "ipcs_config.h"
+#include "config_ipcs.h"
 #include "play.h"
 #include "libftasm.h"
 

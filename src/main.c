@@ -17,7 +17,7 @@
 
 #include "board.h"
 #include "libftasm.h"
-#include "ipcs_config.h"
+#include "config_ipcs.h"
 #include "error.h"
 #include "mylimits.h"
 #include "init_ipcs.h"

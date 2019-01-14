@@ -27,6 +27,7 @@ check_sides.c \
 play.c \
 print.c \
 signal_handler.c \
+player.c \
 
 # OBJECTS LIST ================================================================#
 
