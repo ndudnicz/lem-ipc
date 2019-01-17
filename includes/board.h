@@ -38,7 +38,7 @@ typedef struct	s_board
 
 typedef struct	s_player
 {
-	t_u32			team;
+	t_s32			team;
 	t_u16			x;
 	t_u16			y;
 	t_u8			opt;
@@ -50,5 +50,10 @@ t_s32	player_suicide(
 t_player *p,
 t_board *board
 );
+
+t_s32	spawn_on_board(
+t_player *p
+);
+
 
 #endif

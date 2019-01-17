@@ -38,7 +38,7 @@ static t_s32	valid_team_number(char const *const s)
 		}
 		i++;
 	}
-	return (i > 5 || ft_atoi(s) > USHORTMAX ? -1 : 0);
+	return (i > 5 || ft_atoi(s) > USHORTMAX ? -1 : ft_atoi(s));
 }
 
 int				main(int ac, char **av)
@@ -58,8 +58,8 @@ int				main(int ac, char **av)
 	}
 	else
 	{
-		srand(time(NULL));
 		init_ipcs(&player);
+		spawn_on_board(&player);
 		lets_play(&player, NULL);
 		clean_ipcs(&player);
 		return (0);
