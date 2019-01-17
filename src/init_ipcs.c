@@ -31,12 +31,15 @@ t_board *board
 
 	y = 0;
 	ft_memset(board, 0, sizeof(t_board));
+	puts("fill_board");
+	printf("board->n_player:%d\n", board->n_player);
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
 		while (x < BOARD_SIZE)
 		{
-			board->b[y][x] = -1;
+			board->b[y][x].team = -1;
+			board->b[y][x].pid = 0;
 			x++;
 		}
 		y++;
@@ -59,6 +62,7 @@ t_player *p
 	{
 		(void)fill_board(board);
 		shmdt(board);
+		board = NULL;
 		p->sem.sem_op = 1;
 		semop(p->ipcs.semid, &p->sem, 1);
 	}

@@ -21,6 +21,7 @@
 # define FAIL_SEMGET "Can't semget().\n"
 # define FAIL_MSGGET "Can't msgget().\n"
 # define FAIL_SHMAT "Can't shmat().\n"
+# define FAIL_MALLOC "Can't shmat().\n"
 
 t_s32	ft_error_ret(
 	char const *s1,

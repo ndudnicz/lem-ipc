@@ -18,6 +18,7 @@
 #include "board.h"
 #include "play.h"
 #include "libftasm.h"
+#include "libft.h"
 #include "config_ipcs.h"
 #include "error.h"
 #include "mylimits.h"
@@ -41,27 +42,38 @@ static t_s32	valid_team_number(char const *const s)
 	return (i > 5 || ft_atoi(s) > USHORTMAX ? -1 : ft_atoi(s));
 }
 
+static void		error_main(
+t_player **player,
+char const * const s1,
+char const * const s2,
+int const ret
+)
+{
+	free(*player);
+	*player = NULL;
+	exit(ft_error_ret("Error: ", s1, s2, ret));
+}
+
 int				main(int ac, char **av)
 {
-	size_t		result;
-	t_player	player;
+	size_t			result;
+	t_player	*player;
 
-	player.opt |= P_OPT_NEW;
+	if ((player = (t_player*)ft_calloc(sizeof(t_player))) == NULL)
+		exit(ft_error_ret("Error: ", FAIL_MALLOC, NULL, EXIT_FAILURE));
+	player->opt |= P_OPT_NEW;
 	signal(SIGINT, signal_handler);
-	if (ac != 2 || (int)(player.team = valid_team_number(av[1])) < 0)
-	{
-		exit(ft_error_ret("Error: ", INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE));
-	}
+	if (ac != 2 || (int)(player->team = valid_team_number(av[1])) < 0)
+		error_main(&player, INVALID_TEAM_NUMBER, NULL, EXIT_FAILURE);
 	else if (__builtin_mul_overflow(BOARD_SIZE, BOARD_SIZE, &result))
-	{
-		exit(ft_error_ret("Error: ", BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE));
-	}
+		error_main(&player, BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE);
 	else
 	{
-		init_ipcs(&player);
-		spawn_on_board(&player);
-		lets_play(&player, NULL);
-		clean_ipcs(&player);
+		init_ipcs(player);
+		spawn_on_board(player);
+		lets_play(player, NULL);
+		clean_ipcs(player);
+		free(player);
 		return (0);
 	}
 }

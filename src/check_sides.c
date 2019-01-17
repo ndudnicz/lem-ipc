@@ -20,7 +20,7 @@ t_board *b
 {
 	if (p->x > 0)
 	{
-		return (b->b[p->y][p->x - 1] >= 0 ? b->b[p->y][p->x - 1] : SHORTMAX);
+		return (b->b[p->y][p->x - 1].team >= 0 ? b->b[p->y][p->x - 1].team : SHORTMAX);
 	}
 	else
 	{
@@ -35,7 +35,7 @@ t_board *b
 {
 	if (p->x < BOARD_SIZE - 1)
 	{
-		return (b->b[p->y][p->x + 1] >= 0 ? b->b[p->y][p->x + 1] : SHORTMAX);
+		return (b->b[p->y][p->x + 1].team >= 0 ? b->b[p->y][p->x + 1].team : SHORTMAX);
 	}
 	else
 	{
@@ -50,7 +50,7 @@ t_board *b
 {
 	if (p->y > 0)
 	{
-		return (b->b[p->y - 1][p->x] >= 0 ? b->b[p->y - 1][p->x] : SHORTMAX);
+		return (b->b[p->y - 1][p->x].team >= 0 ? b->b[p->y - 1][p->x].team : SHORTMAX);
 	}
 	else
 	{
@@ -65,7 +65,7 @@ t_board *b
 {
 	if (p->y < BOARD_SIZE - 1)
 	{
-		return (b->b[p->y + 1][p->x] >= 0 ? b->b[p->y + 1][p->x] : SHORTMAX);
+		return (b->b[p->y + 1][p->x].team >= 0 ? b->b[p->y + 1][p->x].team : SHORTMAX);
 	}
 	else
 	{

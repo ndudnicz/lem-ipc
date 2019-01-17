@@ -32,17 +32,19 @@ t_player *p
 	}
 	else
 	{
-		printf("p->opt:%hhx\n", p->opt); //
 		if (p->opt & P_OPT_PRINTER)
 		{
 			unset_printer(p, board);
 		}
+		printf("p->opt:%hhx\n", p->opt); //
+		printf("board->opt:%hhx\n", board->opt); //
 		if (board->n_player < 1)
 		{
 			shmctl(p->ipcs.shmid, IPC_RMID, NULL);
 			semctl(p->ipcs.semid, IPC_RMID, 0);
 			msgctl(p->ipcs.msgid, IPC_RMID, 0);
 			shmdt(board);
+			board = NULL;
 			p->sem.sem_op = 1;
 			semop(p->ipcs.semid, &p->sem, 1);
 		}

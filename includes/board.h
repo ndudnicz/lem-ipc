@@ -26,11 +26,18 @@
 
 # define B_OPT_PRINTER	P_OPT_PRINTER
 
+typedef struct	s_box
+{
+	pid_t	pid;
+	t_u8	opt;
+	t_s32	team;
+}				t_box;
+
 typedef struct	s_board
 {
 	t_u8	opt;
 	t_u16	n_player;
-	t_s32	b[BOARD_SIZE][BOARD_SIZE];
+	t_box	b[BOARD_SIZE][BOARD_SIZE];
 }				t_board;
 
 # define P_OPT_NEW		0x01

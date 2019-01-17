@@ -22,15 +22,22 @@ int sig
 {
 	t_player	p;
 
+	puts("signal_handler");
 	if (sig == SIGINT)
 	{
+		puts("A");
 		init_ipcs(&p);
+		puts("B");
+		erase_player(getpid(), &p,  NULL);
+		puts("C");
 		player_suicide(&p, NULL);
 		clean_ipcs(&p);
-		exit(0);
+		puts("D");
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
+		puts("E");
 		return (0);
 	}
 }

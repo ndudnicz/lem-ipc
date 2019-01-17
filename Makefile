@@ -28,6 +28,8 @@ play.c \
 print.c \
 signal_handler.c \
 player.c \
+debug.c \
+clean_board.c \
 
 # OBJECTS LIST ================================================================#
 
