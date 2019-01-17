@@ -16,7 +16,6 @@
 
 #include "mylimits.h"
 #include "board.h"
-#include "player.h"
 #include "check_sides.h"
 #include "mylimits.h"
 #include "libftasm.h"
@@ -90,13 +89,17 @@ t_board *board
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 		else
 		{
+			if (board->n_player >= (BOARD_SIZE * BOARD_SIZE))
+			{
+				(void)player_suicide(p, board);
+				return (release_sem(p, board));
+			}
 			board->n_player += p->opt & P_OPT_NEW ? 1 : 0;
 			p->opt &= (0xff ^ P_OPT_NEW);
-			// printf("board->opt:%hhx\n", board->opt);
-			// printf("p->opt:%hhx\n", board->opt);
-			// printf("board->n_player:%d\n", board->n_player);
 			if (!(board->opt & B_OPT_PRINTER))
+			{
 				(void)set_printer(p, board);
+			}
 			(void)print_board(p->opt & P_OPT_PRINTER ? board : NULL);
 			if (am_i_dead(p, board))
 			{

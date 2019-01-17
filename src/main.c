@@ -16,13 +16,13 @@
 #include <time.h>
 
 #include "board.h"
+#include "play.h"
 #include "libftasm.h"
 #include "config_ipcs.h"
 #include "error.h"
 #include "mylimits.h"
 #include "init_ipcs.h"
 #include "signal_handler.h"
-#include "play.h"
 #include "clean_ipcs.h"
 
 static t_s32	valid_team_number(char const *const s)

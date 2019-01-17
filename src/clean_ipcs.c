@@ -16,7 +16,6 @@
 #include <stdlib.h>
 
 #include "mylimits.h"
-#include "player.h"
 #include "board.h"
 #include "print.h"
 
