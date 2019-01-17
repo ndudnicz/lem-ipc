@@ -14,6 +14,7 @@
 #include <sys/shm.h>
 #include <sys/sem.h>
 #include <sys/msg.h>
+#include <stdio.h>//
 
 #include "board.h"
 #include "config.h"

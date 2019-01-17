@@ -14,6 +14,7 @@
 #include <sys/sem.h>
 #include <sys/msg.h>
 #include <stdlib.h>
+#include <stdio.h>//
 
 #include "mylimits.h"
 #include "board.h"

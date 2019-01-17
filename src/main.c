@@ -13,7 +13,7 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <time.h>
+// #include <time.h>
 
 #include "board.h"
 #include "play.h"

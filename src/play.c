@@ -13,6 +13,7 @@
 #include <sys/sem.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>//
 
 #include "mylimits.h"
 #include "board.h"
