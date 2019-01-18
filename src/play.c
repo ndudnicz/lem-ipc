@@ -13,15 +13,16 @@
 #include <sys/sem.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>//
 
 #include "libftasm.h"
+#include "libft.h"
 #include "mylimits.h"
 #include "board.h"
 #include "check_sides.h"
 #include "mylimits.h"
 #include "libftasm.h"
 #include "print.h"
+#include "turn.h"
 
 static t_s32	release_sem(
 t_player *const p,
@@ -57,7 +58,6 @@ t_player *const p,
 t_board *const board
 )
 {
-	ft_putstr("am_i_dead\n");
 	t_u8		h[SHORTMAX + 1];
 	t_s32 const	sides[4] = {
 		check_left(p, board),
@@ -67,32 +67,24 @@ t_board *const board
 	};
 
 	(void)init_h((t_u8*)h, (t_u32*)sides);
-	if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1){
-		// ft_putstr("am_i_dead: check_left\n");
+	if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
+	{
 		return (1);
 	}
 	else if (sides[1] < SHORTMAX && p->team != sides[1] && h[sides[1]] > 1)
 	{
-		// ft_putstr("am_i_dead: check_right\n");
 		return (1);
-
 	}
 	else if (sides[2] < SHORTMAX && p->team != sides[2] && h[sides[2]] > 1)
 	{
-		// ft_putstr("am_i_dead: check_up\n");
 		return (1);
-
 	}
 	else if (sides[3] < SHORTMAX && p->team != sides[3] && h[sides[3]] > 1)
 	{
-		// ft_putstr("am_i_dead: check_down\n");
 		return (1);
-
 	}
 	else
 	{
-		// ft_putstr("am_i_dead: nope\n");
-
 		return (0);
 	}
 }
@@ -102,11 +94,10 @@ t_player *const p,
 t_board *board
 )
 {
-	int i;
-
-	i = 0;
+	int i = 0;
 	while (1)
 	{
+		ft_putnbr_endl(i);
 		ft_memset(&p->sem, 0, sizeof(struct sembuf));
 		p->sem.sem_op = -1;
 		semop(p->ipcs.semid, &p->sem, 1);
@@ -116,34 +107,23 @@ t_board *board
 		{
 			if (board->n_player >= (BOARD_SIZE * BOARD_SIZE))
 			{
-				// puts("lets_play A");
-				// printf("board->n_player:%d\n", board->n_player);
 				(void)player_suicide(p, board);
 				return (release_sem(p, &board));
 			}
-			board->n_player += p->opt & P_OPT_NEW ? 1 : 0;
-			p->opt &= (0xff ^ P_OPT_NEW);
-
-			if (!(board->opt & B_OPT_PRINTER))
-			{
-				(void)set_printer(p, board);
-			}
-			// printf("p->opt:%hhx\n", p->opt); //
-			// printf("board->opt:%hhx\n", board->opt); //
+			(void)do_turn(p, board);
 			(void)print_board(p->opt & P_OPT_PRINTER ? board : NULL);
 			if (am_i_dead(p, board))
 			{
 				if (p->opt & P_OPT_PRINTER)
 				{
-					unset_printer(p, board);
+					(void)unset_printer(p, board);
 				}
-				player_suicide(p, board);
+				(void)player_suicide(p, board);
 				return (release_sem(p, &board));
 			}
 			else
-				release_sem(p, &board);
+				(void)release_sem(p, &board);
 		}
-		i++; //
 	}
 	return (0);
 }

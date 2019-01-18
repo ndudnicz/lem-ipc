@@ -13,8 +13,6 @@
 #ifndef PLAY_H
 # define PLAY_H
 
-// # include "player.h"
-
 t_s32	lets_play(
 t_player *p,
 t_board *b

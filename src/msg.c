@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <sys/msg.h>
+#include <errno.h>
 
 #include "libftasm.h"
 #include "error.h"
@@ -32,7 +33,7 @@ pid_t const target
 	ft_memcpy(msg->mtext, &target, sizeof(pid_t));
 	return (0);
 }
-
+#include <string.h>
 t_s32			msg_send(
 t_player *const player,
 t_msg *const msg
@@ -53,9 +54,16 @@ t_player *const player,
 t_msg *const msg
 )
 {
-	if ((msgrcv(player->ipcs.msgid, msg, MSGSIZE, get_mtype(player), 0)) < 0)
+	if ((msgrcv(player->ipcs.msgid, msg, MSGSIZE, get_mtype(player), RCV_FLAG)) < 0)
 	{
-		exit(ft_error_ret("Error: ", FAIL_MSGRCV, NULL, EXIT_FAILURE));
+		if (errno != ENOMSG)
+		{
+			exit(ft_error_ret("Error: ", FAIL_MSGRCV, NULL, EXIT_FAILURE));
+		}
+		else
+		{
+			return (0);
+		}
 	}
 	else
 	{

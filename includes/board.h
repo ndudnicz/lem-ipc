@@ -55,14 +55,13 @@ typedef struct	s_player
 	struct sembuf	sem;
 }				t_player;
 
-t_s32	player_suicide(
-t_player *p,
+t_s32			player_suicide(
+t_player *const p,
 t_board *board
 );
 
-t_s32	spawn_on_board(
-t_player *p
+t_s32			spawn_on_board(
+t_player *const p
 );
-
 
 #endif

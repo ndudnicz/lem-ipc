@@ -19,7 +19,7 @@
 # include "config.h"
 # include "error.h"
 
-# define IPCS_KEY	0x00e1d221
+# define IPCS_KEY	0x00e1d212
 
 # define SHM_SIZE	(sizeof(t_board))
 # define SHM_PERM	0666

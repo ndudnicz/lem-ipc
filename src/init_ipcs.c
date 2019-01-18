@@ -76,7 +76,8 @@ t_player *const p
 {
 	t_s32 const	first = shmget(IPCS_KEY, SHM_SIZE, SHM_FLAG_F) == -1 ? 0 : 1;
 
-	if (first == 0) {
+	if (first == 0)
+	{
 		if ((p->ipcs.shmid = shmget(IPCS_KEY, SHM_SIZE, SHM_PERM)) == -1)
 			exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
 		if ((p->ipcs.semid = semget(IPCS_KEY, 1, SEM_PERM)) == -1)
