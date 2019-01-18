@@ -1,6 +1,6 @@
 NAME = lemipc
 CC = gcc
-CFLAGS = -std=c89 #-Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall #-std=c89 -Werror -Wextra -Wall
 DEBUGFLAGS = #-fsanitize=address -g3
 
 # SOURCE FOLDERS ==============================================================#
@@ -30,6 +30,8 @@ signal_handler.c \
 player.c \
 debug.c \
 clean_board.c \
+msg.c \
+moves.c \
 
 # OBJECTS LIST ================================================================#
 

@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "board.h"
 #include "init_ipcs.h"
 #include "clean_ipcs.h"
+#include "clean_board.h"
 
 t_s32	signal_handler(
 int sig
@@ -22,22 +24,22 @@ int sig
 {
 	t_player	p;
 
-	puts("signal_handler");
+	// puts("signal_handler");
 	if (sig == SIGINT)
 	{
-		puts("A");
+		// puts("A");
 		init_ipcs(&p);
-		puts("B");
+		// puts("B");
 		erase_player(getpid(), &p,  NULL);
-		puts("C");
+		// puts("C");
 		player_suicide(&p, NULL);
 		clean_ipcs(&p);
-		puts("D");
+		// puts("D");
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		puts("E");
+		// puts("E");
 		return (0);
 	}
 }

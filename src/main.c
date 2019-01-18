@@ -43,9 +43,9 @@ static t_s32	valid_team_number(char const *const s)
 }
 
 static void		error_main(
-t_player **player,
-char const * const s1,
-char const * const s2,
+t_player **const player,
+char const *const s1,
+char const *const s2,
 int const ret
 )
 {
@@ -56,7 +56,7 @@ int const ret
 
 int				main(int ac, char **av)
 {
-	size_t			result;
+	size_t		result;
 	t_player	*player;
 
 	if ((player = (t_player*)ft_calloc(sizeof(t_player))) == NULL)

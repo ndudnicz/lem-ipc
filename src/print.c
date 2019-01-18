@@ -21,7 +21,7 @@
 #include "board.h"
 
 t_s32	print_board(
-t_board *board
+t_board *const board
 )
 {
 	t_s32	y;
@@ -32,7 +32,7 @@ t_board *board
 	{
 		return (0);
 	}
-	printf("pid:%d\n", getpid());//
+	// printf("pid:%d\n", getpid());//
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -51,22 +51,22 @@ t_board *board
 }
 
 t_s32	set_printer(
-t_player *p,
-t_board *b
+t_player *const p,
+t_board *const b
 )
 {
-	ft_putstr("set_printer\n");
+	// ft_putstr("set_printer\n");
 	p->opt |= P_OPT_PRINTER;
 	b->opt |= B_OPT_PRINTER;
 	return (0);
 }
 
 t_s32	unset_printer(
-t_player *p,
-t_board *b
+t_player *const p,
+t_board *const b
 )
 {
-	ft_putstr("unset_printer\n");
+	// ft_putstr("unset_printer\n");
 	if (b && (b->opt & B_OPT_PRINTER))
 		b->opt ^= B_OPT_PRINTER;
 	if (p && (p->opt & P_OPT_PRINTER))

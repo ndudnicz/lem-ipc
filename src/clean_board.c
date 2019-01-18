@@ -13,20 +13,21 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include "libftasm.h"
 #include "mystdint.h"
 #include "board.h"
 #include "print.h"
 
 t_s32	clean_pid(
-pid_t pid,
-t_board *board
+pid_t const pid,
+t_board *const board
 )
 {
 	t_s32			x;
 	t_s32			y;
 
 	y = 0;
-	puts("clean_pid()");//
+	// puts("clean_pid()");//
 	ft_memset(board, 0, sizeof(t_board));
 	while (y < BOARD_SIZE)
 	{
@@ -48,12 +49,12 @@ t_board *board
 }
 
 t_s32	erase_player(
-pid_t pid,
-t_player *p,
+pid_t const pid,
+t_player *const p,
 t_board *board
 )
 {
-	puts("erase_player()");
+	// puts("erase_player()");//
 	if (board == NULL)
 	{
 		ft_memset(&p->sem, 0, sizeof(struct sembuf));

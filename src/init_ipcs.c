@@ -24,7 +24,7 @@
 #include "libftasm.h"
 
 static t_s32	fill_board(
-t_board *board
+t_board *const board
 )
 {
 	t_s32			x;
@@ -32,8 +32,8 @@ t_board *board
 
 	y = 0;
 	ft_memset(board, 0, sizeof(t_board));
-	puts("fill_board");
-	printf("board->n_player:%d\n", board->n_player);
+	// puts("fill_board");//
+	// printf("board->n_player:%d\n", board->n_player);//
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -49,7 +49,7 @@ t_board *board
 }
 
 static t_s32	init_board(
-t_player *p
+t_player *const p
 )
 {
 	t_board			*board;
@@ -71,7 +71,7 @@ t_player *p
 }
 
 t_s32			init_ipcs(
-t_player *p
+t_player *const p
 )
 {
 	t_s32 const	first = shmget(IPCS_KEY, SHM_SIZE, SHM_FLAG_F) == -1 ? 0 : 1;

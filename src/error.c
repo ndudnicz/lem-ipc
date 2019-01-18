@@ -18,10 +18,10 @@
 #include "libftasm.h"
 
 t_s32	ft_error_ret(
-	char const *s1,
-	char const *s2,
-	char const *s3,
-	t_s32 const ret
+char const *const s1,
+char const *const s2,
+char const *const s3,
+t_s32 const ret
 )
 {
 	char	*s;

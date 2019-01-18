@@ -43,6 +43,8 @@ typedef struct	s_board
 # define P_OPT_NEW		0x01
 # define P_OPT_PRINTER	0x02
 
+typedef t_u16	t_player_coords;
+
 typedef struct	s_player
 {
 	t_s32			team;

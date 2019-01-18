@@ -13,54 +13,55 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "libftasm.h"
 #include "board.h"
 #include "debug.h"//
 
 t_s32	player_suicide(
-t_player *p,
+t_player *const p,
 t_board *board
 )
 {
-	puts("player_suicide()");
+	// puts("player_suicide()");
 	if (board == NULL)
 	{
-		puts("A");
+		// puts("A");
 		ft_memset(&p->sem, 0, sizeof(struct sembuf));
-		puts("B");
+		// puts("B");
 		p->sem.sem_op = -1;
-		puts("C");
+		// puts("C");
 		semop(p->ipcs.semid, &p->sem, 1);
-		puts("D");
+		// puts("D");
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 		else
 		{
-			puts("E");
+			// puts("E");
 			board->n_player -= board->n_player > 0 ? 1 : 0;
-			puts("F");
+			// puts("F");
 			print_debug(p, board);
-			puts("G");
+			// puts("G");
 			shmdt(board);
-			puts("H");
+			// puts("H");
 			board = NULL;
-			puts("I");
+			// puts("I");
 			p->sem.sem_op = 1;
-			puts("J");
+			// puts("J");
 			semop(p->ipcs.semid, &p->sem, 1);
-			puts("K");
+			// puts("K");
 		}
 	}
 	else
 	{
-		puts("L");
+		// puts("L");
 		board->n_player -= board->n_player > 0 ? 1 : 0;
-		puts("M");
+		// puts("M");
 	}
 	return (0);
 }
 
 t_s32	spawn_on_board(
-t_player *p
+t_player *const p
 )
 {
 	t_board *board;

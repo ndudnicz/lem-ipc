@@ -14,7 +14,7 @@
 # define CLEAN_IPCS_H
 
 t_s32	clean_ipcs(
-	t_player *p
+t_player *const p
 );
 
 #endif

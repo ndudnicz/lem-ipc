@@ -21,12 +21,12 @@
 #include "print.h"
 
 t_s32	clean_ipcs(
-t_player *p
+t_player *const p
 )
 {
 	t_board		*board;
 
-	puts("clean_ipcs");//
+	// puts("clean_ipcs");//
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 	{
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
@@ -37,8 +37,8 @@ t_player *p
 		{
 			unset_printer(p, board);
 		}
-		printf("p->opt:%hhx\n", p->opt); //
-		printf("board->opt:%hhx\n", board->opt); //
+		// printf("p->opt:%hhx\n", p->opt); //
+		// printf("board->opt:%hhx\n", board->opt); //
 		if (board->n_player < 1)
 		{
 			shmctl(p->ipcs.shmid, IPC_RMID, NULL);
