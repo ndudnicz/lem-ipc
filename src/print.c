@@ -55,9 +55,10 @@ t_player *const p,
 t_board *const b
 )
 {
-	// ft_putstr("set_printer\n");
+	ft_putstr("set_printer\n");
 	p->opt |= P_OPT_PRINTER;
 	b->opt |= B_OPT_PRINTER;
+	b->b[p->y][p->x].opt |= B_OPT_PRINTER;
 	return (0);
 }
 
@@ -66,11 +67,13 @@ t_player *const p,
 t_board *const b
 )
 {
-	// ft_putstr("unset_printer\n");
+	ft_putstr("unset_printer\n");
 	if (b && (b->opt & B_OPT_PRINTER))
 		b->opt ^= B_OPT_PRINTER;
 	if (p && (p->opt & P_OPT_PRINTER))
+	{
 		p->opt ^= P_OPT_PRINTER;
+	}
 
 	return (0);
 }

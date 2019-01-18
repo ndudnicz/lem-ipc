@@ -20,19 +20,21 @@
 #include "board.h"
 #include "print.h"
 
+#include "debug.h"//
 t_s32	clean_ipcs(
 t_player *const p
 )
 {
 	t_board		*board;
 
-	// puts("clean_ipcs");//
+	puts("clean_ipcs()");//
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 	{
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 	}
 	else
 	{
+		// print_debug(p, board);
 		if (p->opt & P_OPT_PRINTER)
 		{
 			unset_printer(p, board);

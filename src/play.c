@@ -23,6 +23,7 @@
 #include "libftasm.h"
 #include "print.h"
 #include "turn.h"
+#include "debug.h"
 
 static t_s32	release_sem(
 t_player *const p,
@@ -110,6 +111,7 @@ t_board *board
 				(void)player_suicide(p, board);
 				return (release_sem(p, &board));
 			}
+			print_debug(p, board);
 			(void)do_turn(p, board);
 			(void)print_board(p->opt & P_OPT_PRINTER ? board : NULL);
 			if (am_i_dead(p, board))

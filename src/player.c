@@ -22,7 +22,7 @@ t_player *const p,
 t_board *board
 )
 {
-	// puts("player_suicide()");
+	puts("player_suicide()");
 	if (board == NULL)
 	{
 		// puts("A");
@@ -36,9 +36,10 @@ t_board *board
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 		else
 		{
-			// puts("E");
+	// print_debug(p, board);
+			puts("E");
 			board->n_player -= board->n_player > 0 ? 1 : 0;
-			// puts("F");
+			puts("F");
 			print_debug(p, board);
 			// puts("G");
 			shmdt(board);
@@ -53,9 +54,9 @@ t_board *board
 	}
 	else
 	{
-		// puts("L");
+		puts("E");
 		board->n_player -= board->n_player > 0 ? 1 : 0;
-		// puts("M");
+		puts("F");
 	}
 	return (0);
 }

@@ -18,8 +18,8 @@ void print_debug(t_player*p,t_board*b)
 
 	if (b)
 	{
-	// printf("board->opt: %p\n", b ? b->opt : b);
-	// printf("board->n_player: %p\n", b != NULL? b->n_player :b);
+	printf("board->opt: %p\n", b ? b->opt : b);
+	printf("board->n_player: %d\n", b != NULL? b->n_player :b);
 
 	}
 	else

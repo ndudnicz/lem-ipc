@@ -69,10 +69,10 @@ int				main(int ac, char **av)
 		error_main(&player, BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE);
 	else
 	{
-		init_ipcs(player);
-		spawn_on_board(player);
-		lets_play(player, NULL);
-		clean_ipcs(player);
+		(void)init_ipcs(player);
+		(void)spawn_on_board(player);
+		(void)lets_play(player, NULL);
+		(void)clean_ipcs(player);
 		free(player);
 		return (0);
 	}
