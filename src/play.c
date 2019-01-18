@@ -40,7 +40,7 @@ t_board **board
 
 static t_s32	init_h(
 t_u8 *const h,
-t_u32 *const sides
+t_s32 *const sides
 )
 {
 	h[sides[0]] = 0;
@@ -51,6 +51,7 @@ t_u32 *const sides
 	h[sides[1]]++;
 	h[sides[2]]++;
 	h[sides[3]]++;
+	printf("left: %d, right: %d, up: %d, down: %d\n", sides[0], sides[1], sides[2], sides[3]);
 	return (0);
 }
 
@@ -70,18 +71,22 @@ t_board *const board
 	(void)init_h((t_u8*)h, (t_u32*)sides);
 	if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
 	{
+		puts("stop sides 0");
 		return (1);
 	}
 	else if (sides[1] < SHORTMAX && p->team != sides[1] && h[sides[1]] > 1)
 	{
+		puts("stop sides 1");
 		return (1);
 	}
 	else if (sides[2] < SHORTMAX && p->team != sides[2] && h[sides[2]] > 1)
 	{
+		puts("stop sides 2");
 		return (1);
 	}
 	else if (sides[3] < SHORTMAX && p->team != sides[3] && h[sides[3]] > 1)
 	{
+		puts("stop sides 3");
 		return (1);
 	}
 	else
@@ -111,15 +116,16 @@ t_board *board
 				(void)player_suicide(p, board);
 				return (release_sem(p, &board));
 			}
-			// print_debug(p, board);
 			(void)do_turn(p, board);
 			(void)print_board(p->opt & P_OPT_PRINTER ? board : NULL);
 			if (am_i_dead(p, board))
 			{
+				puts("I AM DEAD");
 				if (p->opt & P_OPT_PRINTER)
 				{
 					(void)unset_printer(p, board);
 				}
+				(void)erase_player(getpid(), p, board);
 				(void)player_suicide(p, board);
 				return (release_sem(p, &board));
 			}

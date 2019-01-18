@@ -58,6 +58,7 @@ t_board *const board,
 t_target_coord *const tcoords
 )
 {
+	puts("do_move()");
 	printf("target: {x: %d, y: %d}\n", tcoords->x, tcoords->y);
 	return (0);
 }
