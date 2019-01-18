@@ -41,6 +41,7 @@ t_board *const board
 		{
 			board->b[y][x].team = -1;
 			board->b[y][x].pid = 0;
+			board->b[y][x].opt = 0;
 			x++;
 		}
 		y++;

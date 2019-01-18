@@ -58,5 +58,6 @@ t_board *const board,
 t_target_coord *const tcoords
 )
 {
+	printf("target: {x: %d, y: %d}\n", tcoords->x, tcoords->y);
 	return (0);
 }

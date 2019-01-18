@@ -40,7 +40,7 @@ t_board *board
 			puts("E");
 			board->n_player -= board->n_player > 0 ? 1 : 0;
 			puts("F");
-			print_debug(p, board);
+			// print_debug(p, board);
 			// puts("G");
 			shmdt(board);
 			// puts("H");

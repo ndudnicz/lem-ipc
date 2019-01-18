@@ -25,7 +25,12 @@ t_target_coord *const tcoords
 	t_s32	y;
 	t_s32	x;
 
+	puts("find_target()");
 	y = 0;
+	if (target == 0)
+	{
+		return (-1);
+	}
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -41,6 +46,7 @@ t_target_coord *const tcoords
 		}
 		y++;
 	}
+	puts("no target");
 	return (-1);
 }
 
@@ -54,13 +60,14 @@ t_target_coord *const tcoords
 	t_s32	y;
 	t_s32	x;
 
+	puts("find_an_enemy()");
 	y = 0;
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
 		while (x < BOARD_SIZE)
 		{
-			if (board->b[y][x].team != p->team)
+			if (board->b[y][x].team >= 0 && board->b[y][x].team != p->team)
 			{
 				tcoords->x = x;
 				tcoords->y = y;
@@ -71,6 +78,7 @@ t_target_coord *const tcoords
 		}
 		y++;
 	}
+	puts("no ennemy");
 	return (-1);
 }
 
@@ -100,6 +108,7 @@ t_board *const board
 		{
 			return (0);
 		}
+		printf("target pid: %d\n", target);
 		(void)do_move(p, board, &tcoords);
 		return (0);
 	}
