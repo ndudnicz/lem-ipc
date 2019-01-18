@@ -33,7 +33,7 @@ pid_t const target
 	ft_memcpy(msg->mtext, &target, sizeof(pid_t));
 	return (0);
 }
-#include <string.h>
+
 t_s32			msg_send(
 t_player *const player,
 t_msg *const msg
