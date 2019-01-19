@@ -66,7 +66,7 @@ t_player *const p
 )
 {
 	t_board *board;
-
+puts("spawn_on_board");
 	p->x = (t_u16)(arc4random() % BOARD_SIZE);
 	p->y = (t_u16)(arc4random() % BOARD_SIZE);
 	ft_memset(&p->sem, 0, sizeof(struct sembuf));
@@ -78,6 +78,7 @@ t_player *const p
 	{
 		board->b[p->y][p->x].team = p->team;
 		board->b[p->y][p->x].pid = getpid();
+		printf("board->b[p->y][p->x].pid: %d\n", board->b[p->y][p->x].pid);
 		board->b[p->y][p->x].opt = p->opt;
 		shmdt(board);
 		p->sem.sem_op = 1;

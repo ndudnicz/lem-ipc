@@ -7,6 +7,7 @@
 #include "board.h"
 #include "msg.h"
 
+#include <stdio.h>//
 static t_s32	get_mtype(
 t_player *const player
 )
@@ -30,7 +31,8 @@ pid_t const target
 )
 {
 	msg->mtype = (long)get_mtype(player);
-	ft_memcpy(msg->mtext, &target, sizeof(pid_t));
+	// msg->mtext = (char*)target;
+	ft_memcpy(msg->mtext, (void*)&target, sizeof(pid_t));
 	return (0);
 }
 
@@ -39,12 +41,14 @@ t_player *const player,
 t_msg *const msg
 )
 {
+	puts("msg_send()");
 	if ((msgsnd(player->ipcs.msgid, msg, MSGSIZE, 0)) < 0)
 	{
 		exit(ft_error_ret("Error: ", FAIL_MSGSND, NULL, EXIT_FAILURE));
 	}
 	else
 	{
+		printf("msg: {mtype: %ld, mtext: %x}\n", msg->mtype, (pid_t)msg->mtext);
 		return (0);
 	}
 }
@@ -54,6 +58,7 @@ t_player *const player,
 t_msg *const msg
 )
 {
+	puts("msg_rcv()");
 	if ((msgrcv(player->ipcs.msgid, msg, MSGSIZE, get_mtype(player), RCV_FLAG)) < 0)
 	{
 		if (errno != ENOMSG)
@@ -67,6 +72,7 @@ t_msg *const msg
 	}
 	else
 	{
+		printf("msg: {mtype: %ld, mtext: %x}\n", msg->mtype, (pid_t)msg->mtext);
 		return (0);
 	}
 }

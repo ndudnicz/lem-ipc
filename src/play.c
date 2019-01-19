@@ -24,6 +24,7 @@
 #include "print.h"
 #include "turn.h"
 #include "debug.h"
+#include "clean_board.h"
 
 static t_s32	release_sem(
 t_player *const p,
@@ -68,7 +69,7 @@ t_board *const board
 		check_down(p, board)
 	};
 
-	(void)init_h((t_u8*)h, (t_u32*)sides);
+	(void)init_h((t_u8*)h, (t_s32*)sides);
 	if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
 	{
 		puts("stop sides 0");
