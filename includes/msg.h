@@ -18,13 +18,14 @@
 # define RCV_PERM	0660
 # define RCV_FLAG	(IPC_NOWAIT | RCV_PERM)
 
+# define MSGSIZE	(sizeof(pid_t))
+
 typedef struct	s_msg
 {
 	long	mtype;
-	char	mtext[sizeof(pid_t)];
+	char	mtext[MSGSIZE];
 }				t_msg;
 
-# define MSGSIZE	(sizeof(pid_t))
 
 t_s32			unforge_msg(
 t_msg *const msg,

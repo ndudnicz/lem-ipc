@@ -20,7 +20,10 @@ t_msg *const msg,
 pid_t *const target
 )
 {
-	*target = ((t_u8)msg->mtext[3] << 24) | ((t_u8)msg->mtext[2] << 16) | ((t_u8)msg->mtext[1] << 8) | (t_u8)msg->mtext[0];
+	*target = ((t_u8)msg->mtext[3] << 24) |
+	((t_u8)msg->mtext[2] << 16) |
+	((t_u8)msg->mtext[1] << 8) |
+	(t_u8)msg->mtext[0];
 	return (0);
 }
 
@@ -32,19 +35,11 @@ pid_t const target
 {
 	msg->mtype = (long)get_mtype(player);
 	puts("forge_msg()");
-	// printf("target: %p\n", target);
-	// printf("target: %p\n", target & 0xff);
-	// printf("target: %p\n", (target >> 8) & 0xff);
-	// printf("target: %p\n", (target >> 16) & 0xff);
-	// printf("target: %p\n", (target >> 24) & 0xff);
 	msg->mtext[0] = target & 0xff;
 	msg->mtext[1] = (target >> 8) & 0xff;
 	msg->mtext[2] = (target >> 16) & 0xff;
 	msg->mtext[3] = (target >> 24) & 0xff;
 	printf("msg->mtext: %x\n", ((t_u8)msg->mtext[3] << 24) | ((t_u8)msg->mtext[2] << 16) | ((t_u8)msg->mtext[1] << 8) | (t_u8)msg->mtext[0]);
-	// printf("msg->mtext: %p\n", msg->mtext[1]);
-	// printf("msg->mtext: %p\n", msg->mtext[2]);
-	// printf("msg->mtext: %p\n", msg->mtext[3]);
 	return (0);
 }
 
