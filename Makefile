@@ -33,6 +33,8 @@ clean_board.c \
 msg.c \
 moves.c \
 turn.c \
+select_move.c \
+can_move.c \
 
 # OBJECTS LIST ================================================================#
 

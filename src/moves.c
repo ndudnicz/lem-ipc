@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+
 #include "board.h"
 #include "turn.h"
 
@@ -25,6 +27,13 @@ t_player *const p,
 t_board *const board
 )
 {
+	board->b[p->y][p->x].team = -1;
+	board->b[p->y][p->x].opt = 0;
+	board->b[p->y][p->x].pid = 0;
+	p->y--;
+	board->b[p->y][p->x].team = p->team;
+	board->b[p->y][p->x].opt = p->opt;
+	board->b[p->y][p->x].pid = getpid();
 	return (0);
 }
 
@@ -33,6 +42,13 @@ t_player *const p,
 t_board *const board
 )
 {
+	board->b[p->y][p->x].team = -1;
+	board->b[p->y][p->x].opt = 0;
+	board->b[p->y][p->x].pid = 0;
+	p->y++;
+	board->b[p->y][p->x].team = p->team;
+	board->b[p->y][p->x].opt = p->opt;
+	board->b[p->y][p->x].pid = getpid();
 	return (0);
 }
 
@@ -41,6 +57,13 @@ t_player *const p,
 t_board *const board
 )
 {
+	board->b[p->y][p->x].team = -1;
+	board->b[p->y][p->x].opt = 0;
+	board->b[p->y][p->x].pid = 0;
+	p->x--;
+	board->b[p->y][p->x].team = p->team;
+	board->b[p->y][p->x].opt = p->opt;
+	board->b[p->y][p->x].pid = getpid();
 	return (0);
 }
 
@@ -49,6 +72,13 @@ t_player *const p,
 t_board *const board
 )
 {
+	board->b[p->y][p->x].team = -1;
+	board->b[p->y][p->x].opt = 0;
+	board->b[p->y][p->x].pid = 0;
+	p->x++;
+	board->b[p->y][p->x].team = p->team;
+	board->b[p->y][p->x].opt = p->opt;
+	board->b[p->y][p->x].pid = getpid();
 	return (0);
 }
 
@@ -58,7 +88,13 @@ t_board *const board,
 t_target_coord *const tcoords
 )
 {
+	t_s32 const	move = select_move(p, board, tcoords);
+
 	puts("do_move()"); // DEBUG
 	printf("target: {x: %d, y: %d}\n", tcoords->x, tcoords->y); // DEBUG
+	if (move >= 0)
+	{
+		moves[move](p, board);
+	}
 	return (0);
 }
