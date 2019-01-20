@@ -68,7 +68,6 @@ t_msg *const msg
 	t_msg	msg2;
 	if ((long)(msgrcv(player->ipcs.msgid, &msg2, MSGSIZE, get_mtype(player), RCV_FLAG)) < 0)
 	{
-
 		if (errno && errno != ENOMSG)
 		{
 			exit(ft_error_ret("Error: ", FAIL_MSGRCV, NULL, EXIT_FAILURE));
