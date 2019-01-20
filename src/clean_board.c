@@ -27,7 +27,7 @@ t_board *const board
 	t_s32			y;
 
 	y = 0;
-	puts("clean_pid()");//
+	puts("clean_pid()");// // DEBUG
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -35,7 +35,7 @@ t_board *const board
 		{
 			if (board->b[y][x].pid == pid)
 			{
-				printf("pid:%d\nteam:%d\nopt:%p\n", board->b[y][x].pid, board->b[y][x].team, board->b[y][x].opt);
+				printf("pid:%d\nteam:%d\nopt:%p\n", board->b[y][x].pid, board->b[y][x].team, board->b[y][x].opt); // DEBUG
 				board->b[y][x].pid = 0;
 				board->b[y][x].team = -1;
 				if (board->b[y][x].opt & P_OPT_PRINTER)

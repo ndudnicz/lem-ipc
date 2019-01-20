@@ -101,10 +101,8 @@ t_player *const p,
 t_board *board
 )
 {
-	int i = 0;
 	while (1)
 	{
-		ft_putnbr_endl(i);
 		ft_memset(&p->sem, 0, sizeof(struct sembuf));
 		p->sem.sem_op = -1;
 		semop(p->ipcs.semid, &p->sem, 1);
@@ -119,9 +117,10 @@ t_board *board
 			}
 			(void)do_turn(p, board);
 			(void)print_board(p->opt & P_OPT_PRINTER ? board : NULL);
+			printf("%x\n", getpid()); // DEBUG
 			if (am_i_dead(p, board))
 			{
-				puts("I AM DEAD");
+				puts("I AM DEAD"); // DEBUG
 				if (p->opt & P_OPT_PRINTER)
 				{
 					(void)unset_printer(p, board);

@@ -25,7 +25,7 @@ static t_s32	find_target(
 	t_s32	y;
 	t_s32	x;
 
-	puts("find_target()");
+	puts("find_target()"); // DEBUG
 	y = 0;
 	if (target == 0)
 	{
@@ -46,7 +46,7 @@ static t_s32	find_target(
 		}
 		y++;
 	}
-	puts("no target");
+	puts("no target"); // DEBUG
 	return (-1);
 }
 
@@ -60,7 +60,7 @@ static t_s32	find_an_enemy(
 	t_s32	y;
 	t_s32	x;
 
-	puts("find_an_enemy()");
+	puts("find_an_enemy()"); // DEBUG
 	y = 0;
 	while (y < BOARD_SIZE)
 	{
@@ -78,7 +78,7 @@ static t_s32	find_an_enemy(
 		}
 		y++;
 	}
-	puts("no ennemy");
+	puts("no ennemy"); // DEBUG
 	return (-1);
 }
 
@@ -106,7 +106,7 @@ t_s32			do_turn(
 	}
 	(void)forge_msg(&msg, p, target);
 	(void)msg_send(p, &msg);
-	printf("target pid: %d\n", target);
+	printf("target pid: %d\n", target); // DEBUG
 	(void)do_move(p, board, &tcoords);
 	return (0);
 }

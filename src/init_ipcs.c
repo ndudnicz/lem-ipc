@@ -14,7 +14,7 @@
 #include <sys/shm.h>
 #include <sys/sem.h>
 #include <sys/msg.h>
-#include <stdio.h>//
+#include <stdio.h>// // DEBUG
 
 #include "board.h"
 #include "config.h"
@@ -32,8 +32,8 @@ t_board *const board
 
 	y = 0;
 	ft_memset(board, 0, sizeof(t_board));
-	// puts("fill_board");//
-	// printf("board->n_player:%d\n", board->n_player);//
+	// puts("fill_board");// // DEBUG
+	// printf("board->n_player:%d\n", board->n_player);// // DEBUG
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -77,7 +77,7 @@ t_player *const p
 {
 	t_s32 const	first = shmget(IPCS_KEY, SHM_SIZE, SHM_FLAG_F) == -1 ? 0 : 1;
 
-	puts("init_ipcs()");
+	puts("init_ipcs()"); // DEBUG
 	if (first == 0)
 	{
 		if ((p->ipcs.shmid = shmget(IPCS_KEY, SHM_SIZE, SHM_PERM)) == -1)

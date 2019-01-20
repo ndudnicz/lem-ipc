@@ -27,7 +27,7 @@ t_player *const p
 {
 	t_board		*board;
 
-	puts("clean_ipcs()");//
+	puts("clean_ipcs()");// // DEBUG
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 	{
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));

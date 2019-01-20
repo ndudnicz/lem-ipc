@@ -15,14 +15,16 @@
 
 # include <sys/msg.h>
 
-# define MSGSIZE	(sizeof(pid_t))
-# define RCV_FLAG	IPC_NOWAIT
+# define RCV_PERM	0660
+# define RCV_FLAG	(IPC_NOWAIT | RCV_PERM)
 
 typedef struct	s_msg
 {
 	long	mtype;
-	char	mtext[MSGSIZE];
+	char	mtext[sizeof(pid_t)];
 }				t_msg;
+
+# define MSGSIZE	(sizeof(pid_t))
 
 t_s32			unforge_msg(
 t_msg *const msg,

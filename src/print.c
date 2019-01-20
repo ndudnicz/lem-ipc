@@ -32,7 +32,7 @@ t_board *const board
 	{
 		return (0);
 	}
-	// printf("pid:%d\n", getpid());//
+	// printf("pid:%d\n", getpid());// // DEBUG
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -55,7 +55,7 @@ t_player *const p,
 t_board *const b
 )
 {
-	ft_putstr("set_printer\n");
+	ft_putstr("set_printer\n"); // DEBUG
 	p->opt |= P_OPT_PRINTER;
 	b->opt |= B_OPT_PRINTER;
 	b->b[p->y][p->x].opt |= B_OPT_PRINTER;
@@ -67,7 +67,7 @@ t_player *const p,
 t_board *const b
 )
 {
-	ft_putstr("unset_printer\n");
+	ft_putstr("unset_printer\n"); // DEBUG
 	if (b && (b->opt & B_OPT_PRINTER))
 	{
 		b->opt ^= B_OPT_PRINTER;

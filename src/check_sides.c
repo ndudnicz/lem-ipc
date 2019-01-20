@@ -18,7 +18,7 @@ t_player const *const p,
 t_board const *const b
 )
 {
-	printf("left: p->team: %d, b->team: %d\n", p->team,b->b[p->y][p->x - 1].team);
+	// printf("left: p->team: %d, b->team: %d\n", p->team,b->b[p->y][p->x - 1].team);
 	if (p->x > 0)
 	{
 		return (b->b[p->y][p->x - 1].team >= 0 ?
@@ -35,7 +35,7 @@ t_player const *const p,
 t_board const *const b
 )
 {
-	printf("right: p->team: %d, b->team: %d\n", p->team, b->b[p->y][p->x + 1]);
+	// printf("right: p->team: %d, b->team: %d\n", p->team, b->b[p->y][p->x + 1]);
 	if (p->x < BOARD_SIZE - 1)
 	{
 		return (b->b[p->y][p->x + 1].team >= 0 ?
@@ -52,7 +52,7 @@ t_player const *const p,
 t_board const *const b
 )
 {
-	printf("up: p->team: %d, b->team: %d\n", p->team,b->b[p->y - 1][p->x].team);
+	// printf("up: p->team: %d, b->team: %d\n", p->team,b->b[p->y - 1][p->x].team);
 	if (p->y > 0)
 	{
 		return (b->b[p->y - 1][p->x].team >= 0 ?
@@ -69,7 +69,7 @@ t_player const *const p,
 t_board const *const b
 )
 {
-	printf("down: p->team: %d, b->team: %d\n", p->team,b->b[p->y + 1][p->x].team);
+	// printf("down: p->team: %d, b->team: %d\n", p->team,b->b[p->y + 1][p->x].team);
 	if (p->y < BOARD_SIZE - 1)
 	{
 		return (b->b[p->y + 1][p->x].team >= 0 ?

@@ -20,7 +20,7 @@ t_msg *const msg,
 pid_t *const target
 )
 {
-	*target = (pid_t)msg->mtext;
+	*target = ((t_u8)msg->mtext[3] << 24) | ((t_u8)msg->mtext[2] << 16) | ((t_u8)msg->mtext[1] << 8) | (t_u8)msg->mtext[0];
 	return (0);
 }
 
@@ -31,8 +31,20 @@ pid_t const target
 )
 {
 	msg->mtype = (long)get_mtype(player);
-	// msg->mtext = (char*)target;
-	ft_memcpy(msg->mtext, (void*)&target, sizeof(pid_t));
+	puts("forge_msg()");
+	// printf("target: %p\n", target);
+	// printf("target: %p\n", target & 0xff);
+	// printf("target: %p\n", (target >> 8) & 0xff);
+	// printf("target: %p\n", (target >> 16) & 0xff);
+	// printf("target: %p\n", (target >> 24) & 0xff);
+	msg->mtext[0] = target & 0xff;
+	msg->mtext[1] = (target >> 8) & 0xff;
+	msg->mtext[2] = (target >> 16) & 0xff;
+	msg->mtext[3] = (target >> 24) & 0xff;
+	printf("msg->mtext: %x\n", ((t_u8)msg->mtext[3] << 24) | ((t_u8)msg->mtext[2] << 16) | ((t_u8)msg->mtext[1] << 8) | (t_u8)msg->mtext[0]);
+	// printf("msg->mtext: %p\n", msg->mtext[1]);
+	// printf("msg->mtext: %p\n", msg->mtext[2]);
+	// printf("msg->mtext: %p\n", msg->mtext[3]);
 	return (0);
 }
 
@@ -48,7 +60,6 @@ t_msg *const msg
 	}
 	else
 	{
-		printf("msg: {mtype: %ld, mtext: %x}\n", msg->mtype, (pid_t)msg->mtext);
 		return (0);
 	}
 }
@@ -59,9 +70,11 @@ t_msg *const msg
 )
 {
 	puts("msg_rcv()");
-	if ((msgrcv(player->ipcs.msgid, msg, MSGSIZE, get_mtype(player), RCV_FLAG)) < 0)
+	t_msg	msg2;
+	if ((long)(msgrcv(player->ipcs.msgid, &msg2, MSGSIZE, get_mtype(player), RCV_FLAG)) < 0)
 	{
-		if (errno != ENOMSG)
+
+		if (errno && errno != ENOMSG)
 		{
 			exit(ft_error_ret("Error: ", FAIL_MSGRCV, NULL, EXIT_FAILURE));
 		}
@@ -72,7 +85,6 @@ t_msg *const msg
 	}
 	else
 	{
-		printf("msg: {mtype: %ld, mtext: %x}\n", msg->mtype, (pid_t)msg->mtext);
 		return (0);
 	}
 }
