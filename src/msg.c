@@ -7,7 +7,7 @@
 #include "board.h"
 #include "msg.h"
 
-#include <stdio.h>//
+#include <stdio.h>// // DEBUG
 static t_s32	get_mtype(
 t_player *const player
 )
@@ -34,12 +34,12 @@ pid_t const target
 )
 {
 	msg->mtype = (long)get_mtype(player);
-	puts("forge_msg()");
+	puts("forge_msg()"); // DEBUG
 	msg->mtext[0] = target & 0xff;
 	msg->mtext[1] = (target >> 8) & 0xff;
 	msg->mtext[2] = (target >> 16) & 0xff;
 	msg->mtext[3] = (target >> 24) & 0xff;
-	printf("msg->mtext: %x\n", ((t_u8)msg->mtext[3] << 24) | ((t_u8)msg->mtext[2] << 16) | ((t_u8)msg->mtext[1] << 8) | (t_u8)msg->mtext[0]);
+	printf("msg->mtext: %x\n", ((t_u8)msg->mtext[3] << 24) | ((t_u8)msg->mtext[2] << 16) | ((t_u8)msg->mtext[1] << 8) | (t_u8)msg->mtext[0]); // DEBUG
 	return (0);
 }
 
@@ -48,7 +48,7 @@ t_player *const player,
 t_msg *const msg
 )
 {
-	puts("msg_send()");
+	puts("msg_send()"); // DEBUG
 	if ((msgsnd(player->ipcs.msgid, msg, MSGSIZE, 0)) < 0)
 	{
 		exit(ft_error_ret("Error: ", FAIL_MSGSND, NULL, EXIT_FAILURE));
@@ -64,9 +64,9 @@ t_player *const player,
 t_msg *const msg
 )
 {
-	puts("msg_rcv()");
-	t_msg	msg2;
-	if ((long)(msgrcv(player->ipcs.msgid, &msg2, MSGSIZE, get_mtype(player), RCV_FLAG)) < 0)
+	puts("msg_rcv()"); // DEBUG
+	if ((long)(msgrcv(player->ipcs.msgid, msg, MSGSIZE,
+	get_mtype(player), RCV_FLAG)) < 0)
 	{
 		if (errno && errno != ENOMSG)
 		{
