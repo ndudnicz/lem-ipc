@@ -18,7 +18,6 @@ t_board *const board
 		x = 0;
 		while (x < BOARD_SIZE)
 		{
-
 			if (board->b[y][x].team >= 0 && board->b[y][x].team != p->team)
 			{
 				others = board->b[y][x].team;
