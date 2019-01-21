@@ -24,7 +24,11 @@
 #  error BOARD_SIZE too high.
 # endif
 
+# define P_OPT_NEW		0x01
+# define P_OPT_PRINTER	0x02
+
 # define B_OPT_PRINTER	P_OPT_PRINTER
+# define B_OPT_END		0x04
 
 typedef struct	s_box
 {
@@ -40,8 +44,6 @@ typedef struct	s_board
 	t_box	b[BOARD_SIZE][BOARD_SIZE];
 }				t_board;
 
-# define P_OPT_NEW		0x01
-# define P_OPT_PRINTER	0x02
 
 typedef t_u16	t_player_coords;
 
@@ -50,6 +52,8 @@ typedef struct	s_player
 	t_s32			team;
 	t_u16			x;
 	t_u16			y;
+	t_u16			prev_x;
+	t_u16			prev_y;
 	t_u8			opt;
 	t_ipcs_config	ipcs;
 	struct sembuf	sem;

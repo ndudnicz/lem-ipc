@@ -35,6 +35,7 @@ moves.c \
 turn.c \
 select_move.c \
 can_move.c \
+win.c \
 
 # OBJECTS LIST ================================================================#
 

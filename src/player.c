@@ -76,10 +76,15 @@ puts("spawn_on_board"); // DEBUG
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 	else
 	{
-		board->b[p->y][p->x].team = p->team;
-		board->b[p->y][p->x].pid = getpid();
-		printf("board->b[p->y][p->x].pid: %d\n", board->b[p->y][p->x].pid); // DEBUG
-		board->b[p->y][p->x].opt = p->opt;
+		if (board->n_player < BOARD_SIZE * BOARD_SIZE)
+		{
+			board->b[p->y][p->x].team = p->team;
+			board->b[p->y][p->x].pid = getpid();
+			printf("board->b[p->y][p->x].pid: %d\n", board->b[p->y][p->x].pid); // DEBUG
+			board->b[p->y][p->x].opt = p->opt;
+		}
+		else
+			exit(ft_error_ret("Error: ", TOO_MANY_PLAYER, NULL, EXIT_FAILURE));
 		shmdt(board);
 		p->sem.sem_op = 1;
 		semop(p->ipcs.semid, &p->sem, 1);

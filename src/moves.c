@@ -30,6 +30,8 @@ t_board *const board
 	board->b[p->y][p->x].team = -1;
 	board->b[p->y][p->x].opt = 0;
 	board->b[p->y][p->x].pid = 0;
+	p->prev_y = p->y;
+	p->prev_x = p->x;
 	p->y--;
 	board->b[p->y][p->x].team = p->team;
 	board->b[p->y][p->x].opt = p->opt;
@@ -45,6 +47,8 @@ t_board *const board
 	board->b[p->y][p->x].team = -1;
 	board->b[p->y][p->x].opt = 0;
 	board->b[p->y][p->x].pid = 0;
+	p->prev_y = p->y;
+	p->prev_x = p->x;
 	p->y++;
 	board->b[p->y][p->x].team = p->team;
 	board->b[p->y][p->x].opt = p->opt;
@@ -60,6 +64,8 @@ t_board *const board
 	board->b[p->y][p->x].team = -1;
 	board->b[p->y][p->x].opt = 0;
 	board->b[p->y][p->x].pid = 0;
+	p->prev_y = p->y;
+	p->prev_x = p->x;
 	p->x--;
 	board->b[p->y][p->x].team = p->team;
 	board->b[p->y][p->x].opt = p->opt;
@@ -75,6 +81,8 @@ t_board *const board
 	board->b[p->y][p->x].team = -1;
 	board->b[p->y][p->x].opt = 0;
 	board->b[p->y][p->x].pid = 0;
+	p->prev_y = p->y;
+	p->prev_x = p->x;
 	p->x++;
 	board->b[p->y][p->x].team = p->team;
 	board->b[p->y][p->x].opt = p->opt;

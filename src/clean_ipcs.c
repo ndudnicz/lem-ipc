@@ -28,6 +28,9 @@ t_player *const p
 	t_board		*board;
 
 	puts("clean_ipcs()");// // DEBUG
+	// ft_memset(&p->sem, 0, sizeof(struct sembuf));
+	// p->sem.sem_op = -1;
+	// semop(p->ipcs.semid, &p->sem, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 	{
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));

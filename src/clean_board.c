@@ -18,6 +18,7 @@
 #include "board.h"
 #include "print.h"
 
+
 t_s32	clean_pid(
 pid_t const pid,
 t_board *const board
@@ -65,7 +66,8 @@ t_board *board
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 		else
 		{
-			clean_pid(pid, board);
+			(void)clean_pid(pid, board);
+			(void)this_is_the_end(p, board);
 			shmdt(board);
 			// board = NULL;
 			p->sem.sem_op = 1;
