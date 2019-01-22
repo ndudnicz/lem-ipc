@@ -27,15 +27,18 @@ t_player *const p,
 t_board *const board
 )
 {
-	board->b[p->y][p->x].team = -1;
-	board->b[p->y][p->x].opt = 0;
-	board->b[p->y][p->x].pid = 0;
-	p->prev_y = p->y;
-	p->prev_x = p->x;
-	p->y--;
-	board->b[p->y][p->x].team = p->team;
-	board->b[p->y][p->x].opt = p->opt;
-	board->b[p->y][p->x].pid = getpid();
+	if (p->y > 0 && board->b[p->y - 1][p->x].team == -1)
+	{
+		board->b[p->y][p->x].team = -1;
+		board->b[p->y][p->x].opt = 0;
+		board->b[p->y][p->x].pid = 0;
+		p->prev_y = p->y;
+		p->prev_x = p->x;
+		p->y--;
+		board->b[p->y][p->x].team = p->team;
+		board->b[p->y][p->x].opt = p->opt;
+		board->b[p->y][p->x].pid = getpid();
+	}
 	return (0);
 }
 
@@ -44,15 +47,18 @@ t_player *const p,
 t_board *const board
 )
 {
-	board->b[p->y][p->x].team = -1;
-	board->b[p->y][p->x].opt = 0;
-	board->b[p->y][p->x].pid = 0;
-	p->prev_y = p->y;
-	p->prev_x = p->x;
-	p->y++;
-	board->b[p->y][p->x].team = p->team;
-	board->b[p->y][p->x].opt = p->opt;
-	board->b[p->y][p->x].pid = getpid();
+	if (p->y + 1 < BOARD_SIZE && board->b[p->y + 1][p->x].team == -1)
+	{
+		board->b[p->y][p->x].team = -1;
+		board->b[p->y][p->x].opt = 0;
+		board->b[p->y][p->x].pid = 0;
+		p->prev_y = p->y;
+		p->prev_x = p->x;
+		p->y++;
+		board->b[p->y][p->x].team = p->team;
+		board->b[p->y][p->x].opt = p->opt;
+		board->b[p->y][p->x].pid = getpid();
+	}
 	return (0);
 }
 
@@ -61,15 +67,18 @@ t_player *const p,
 t_board *const board
 )
 {
-	board->b[p->y][p->x].team = -1;
-	board->b[p->y][p->x].opt = 0;
-	board->b[p->y][p->x].pid = 0;
-	p->prev_y = p->y;
-	p->prev_x = p->x;
-	p->x--;
-	board->b[p->y][p->x].team = p->team;
-	board->b[p->y][p->x].opt = p->opt;
-	board->b[p->y][p->x].pid = getpid();
+	if (p->x > 0 && board->b[p->y][p->x - 1].team == -1)
+	{
+		board->b[p->y][p->x].team = -1;
+		board->b[p->y][p->x].opt = 0;
+		board->b[p->y][p->x].pid = 0;
+		p->prev_y = p->y;
+		p->prev_x = p->x;
+		p->x--;
+		board->b[p->y][p->x].team = p->team;
+		board->b[p->y][p->x].opt = p->opt;
+		board->b[p->y][p->x].pid = getpid();
+	}
 	return (0);
 }
 
@@ -78,15 +87,18 @@ t_player *const p,
 t_board *const board
 )
 {
-	board->b[p->y][p->x].team = -1;
-	board->b[p->y][p->x].opt = 0;
-	board->b[p->y][p->x].pid = 0;
-	p->prev_y = p->y;
-	p->prev_x = p->x;
-	p->x++;
-	board->b[p->y][p->x].team = p->team;
-	board->b[p->y][p->x].opt = p->opt;
-	board->b[p->y][p->x].pid = getpid();
+	if (p->x + 1 < BOARD_SIZE && board->b[p->y][p->x + 1].team == -1)
+	{
+		board->b[p->y][p->x].team = -1;
+		board->b[p->y][p->x].opt = 0;
+		board->b[p->y][p->x].pid = 0;
+		p->prev_y = p->y;
+		p->prev_x = p->x;
+		p->x++;
+		board->b[p->y][p->x].team = p->team;
+		board->b[p->y][p->x].opt = p->opt;
+		board->b[p->y][p->x].pid = getpid();
+	}
 	return (0);
 }
 
@@ -98,8 +110,8 @@ t_target_coord *const tcoords
 {
 	t_s32 const	move = select_move(p, board, tcoords);
 
-	puts("do_move()"); // DEBUG
-	printf("target: {x: %d, y: %d}\n", tcoords->x, tcoords->y); // DEBUG
+	// puts("do_move()"); // DEBUG
+	// printf("target: {x: %d, y: %d}\n", tcoords->x, tcoords->y); // DEBUG
 	if (move >= 0)
 	{
 		moves[move](p, board);

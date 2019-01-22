@@ -7,7 +7,8 @@ t_board *const board
 );
 
 t_s32	i_win(
-t_player *const p
+t_player *const p,
+t_board *const board
 );
 
 #endif

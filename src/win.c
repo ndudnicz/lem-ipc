@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 
 #include "board.h"
 
@@ -9,22 +10,28 @@ t_board *const board
 {
 	t_s32		x;
 	t_s32		y;
-	t_s32	others;
+	t_s32		other;
+	pid_t const	pid = getpid();
 
 	puts("this_is_the_end");
 	y = 0;
+	other = -1;
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
 		while (x < BOARD_SIZE)
 		{
-			if (board->b[y][x].team >= 0 && board->b[y][x].team != p->team)
+			if (board->b[y][x].team >= 0 && board->b[y][x].pid != pid)
 			{
-				others = board->b[y][x].team;
+				if (other == -1)
+				{
+					other = board->b[y][x].team;
+				}
+				else if (other != board->b[y][x].team)
+				{
+					return (1);
+				}
 			}
-			if (others != board->b[y][x].team && board->b[y][x].team >= 0 && board->b[y][x].team != p->team)
-				return (1);
-
 			x++;
 		}
 		y++;
@@ -39,7 +46,7 @@ t_player *const p,
 t_board *const board
 )
 {
-	(void)player_suicide(p, board);
 	printf("team %d win !\n", p->team);
+	(void)player_suicide(p, board);
 	return (0);
 }

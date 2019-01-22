@@ -28,7 +28,7 @@ t_board *const board
 	t_s32			y;
 
 	y = 0;
-	puts("clean_pid()");// // DEBUG
+	// puts("clean_pid()");// // DEBUG
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -36,11 +36,11 @@ t_board *const board
 		{
 			if (board->b[y][x].pid == pid)
 			{
-				printf("pid:%d\nteam:%d\nopt:%p\n", board->b[y][x].pid, board->b[y][x].team, board->b[y][x].opt); // DEBUG
+				// printf("pid:%d\nteam:%d\nopt:%p\n", board->b[y][x].pid, board->b[y][x].team, board->b[y][x].opt); // DEBUG
 				board->b[y][x].pid = 0;
 				board->b[y][x].team = -1;
-				if (board->b[y][x].opt & P_OPT_PRINTER)
-					unset_printer(NULL, board);
+				// if (board->b[y][x].opt & P_OPT_PRINTER)
+				// 	unset_printer(NULL, board);
 				board->b[y][x].opt = 0;
 			}
 			x++;
@@ -56,7 +56,7 @@ t_player *const p,
 t_board *board
 )
 {
-	puts("erase_player()");//
+	// puts("erase_player()");//
 	if (board == NULL)
 	{
 		ft_memset(&p->sem, 0, sizeof(struct sembuf));

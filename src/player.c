@@ -22,7 +22,7 @@ t_player *const p,
 t_board *board
 )
 {
-	puts("player_suicide()"); // DEBUG
+	// puts("player_suicide()"); // DEBUG
 	if (board == NULL)
 	{
 		// puts("A"); // DEBUG
@@ -37,9 +37,9 @@ t_board *board
 		else
 		{
 	// print_debug(p, board); // DEBUG
-			puts("E"); // DEBUG
+			// puts("E"); // DEBUG
 			board->n_player -= board->n_player > 0 ? 1 : 0;
-			puts("F"); // DEBUG
+			// puts("F"); // DEBUG
 			// print_debug(p, board);
 			// puts("G"); // DEBUG
 			shmdt(board);
@@ -54,9 +54,9 @@ t_board *board
 	}
 	else
 	{
-		puts("E"); // DEBUG
+		// puts("E"); // DEBUG
 		board->n_player -= board->n_player > 0 ? 1 : 0;
-		puts("F"); // DEBUG
+		// puts("F"); // DEBUG
 	}
 	return (0);
 }
@@ -66,7 +66,7 @@ t_player *const p
 )
 {
 	t_board *board;
-puts("spawn_on_board"); // DEBUG
+// puts("spawn_on_board"); // DEBUG
 	p->x = (t_u16)(arc4random() % BOARD_SIZE);
 	p->y = (t_u16)(arc4random() % BOARD_SIZE);
 	ft_memset(&p->sem, 0, sizeof(struct sembuf));
@@ -80,7 +80,7 @@ puts("spawn_on_board"); // DEBUG
 		{
 			board->b[p->y][p->x].team = p->team;
 			board->b[p->y][p->x].pid = getpid();
-			printf("board->b[p->y][p->x].pid: %d\n", board->b[p->y][p->x].pid); // DEBUG
+			// printf("board->b[p->y][p->x].pid: %d\n", board->b[p->y][p->x].pid); // DEBUG
 			board->b[p->y][p->x].opt = p->opt;
 		}
 		else

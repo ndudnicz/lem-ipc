@@ -25,9 +25,7 @@
 # endif
 
 # define P_OPT_NEW		0x01
-# define P_OPT_PRINTER	0x02
 
-# define B_OPT_PRINTER	P_OPT_PRINTER
 # define B_OPT_END		0x04
 
 typedef struct	s_box

@@ -77,7 +77,7 @@ t_player *const p
 {
 	t_s32 const	first = shmget(IPCS_KEY, SHM_SIZE, SHM_FLAG_F) == -1 ? 0 : 1;
 
-	puts("init_ipcs()"); // DEBUG
+	// puts("init_ipcs()"); // DEBUG
 	if (first == 0)
 	{
 		if ((p->ipcs.shmid = shmget(IPCS_KEY, SHM_SIZE, SHM_PERM)) == -1)

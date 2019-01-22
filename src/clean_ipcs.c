@@ -27,7 +27,7 @@ t_player *const p
 {
 	t_board		*board;
 
-	puts("clean_ipcs()");// // DEBUG
+	// puts("clean_ipcs()");// // DEBUG
 	// ft_memset(&p->sem, 0, sizeof(struct sembuf));
 	// p->sem.sem_op = -1;
 	// semop(p->ipcs.semid, &p->sem, 1);
@@ -38,10 +38,10 @@ t_player *const p
 	else
 	{
 		// print_debug(p, board);
-		if (p->opt & P_OPT_PRINTER)
-		{
-			unset_printer(p, board);
-		}
+		// if (p->opt & P_OPT_PRINTER)
+		// {
+		// 	unset_printer(p, board);
+		// }
 		// printf("p->opt:%hhx\n", p->opt); //
 		// printf("board->opt:%hhx\n", board->opt); //
 		if (board->n_player < 1)

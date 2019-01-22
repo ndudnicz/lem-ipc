@@ -32,11 +32,11 @@ t_player *const p,
 t_board **board
 )
 {
+	puts("release sem");
 	shmdt(*board);
 	*board = NULL;
 	p->sem.sem_op = 1;
 	semop(p->ipcs.semid, &p->sem, 1);
-	usleep(TURN_WAIT);
 	return (0);
 }
 
@@ -53,7 +53,7 @@ t_s32 *const sides
 	h[sides[1]]++;
 	h[sides[2]]++;
 	h[sides[3]]++;
-	printf("left: %d, right: %d, up: %d, down: %d\n", sides[0], sides[1], sides[2], sides[3]);
+	// printf("left: %d, right: %d, up: %d, down: %d\n", sides[0], sides[1], sides[2], sides[3]);
 	return (0);
 }
 
@@ -74,25 +74,25 @@ t_board *const board
 	(void)init_h((t_u8*)h, (t_s32*)sides);
 	if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
 	{
-		puts("stop sides 0");
+		// puts("stop sides 0");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}
 	else if (sides[1] < SHORTMAX && p->team != sides[1] && h[sides[1]] > 1)
 	{
-		puts("stop sides 1");
+		// puts("stop sides 1");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}
 	else if (sides[2] < SHORTMAX && p->team != sides[2] && h[sides[2]] > 1)
 	{
-		puts("stop sides 2");
+		// puts("stop sides 2");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}
 	else if (sides[3] < SHORTMAX && p->team != sides[3] && h[sides[3]] > 1)
 	{
-		puts("stop sides 3");
+		// puts("stop sides 3");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}
@@ -107,44 +107,49 @@ t_player *const p,
 t_board *board
 )
 {
+	struct sembuf	sem;
+
 	while (1)
 	{
-		ft_memset(&p->sem, 0, sizeof(struct sembuf));
-		p->sem.sem_op = -1;
-		semop(p->ipcs.semid, &p->sem, 1);
+		puts("a");
+		ft_memset(&sem, 0, sizeof(struct sembuf));
+		puts("b");
+		sem.sem_op = -1;
+		puts("c");
+		semop(p->ipcs.semid, &sem, 1);
+		puts("d");
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 		else
 		{
-			print_debug(p, board);
-			if (board->opt & B_OPT_END)
-			{
-				(void)release_sem(p, &board);
-
-				return (i_win(p));
-			}
-			// if (board->n_player >= (BOARD_SIZE * BOARD_SIZE))
-			// {
-			// 	(void)player_suicide(p, board);
-			// 	return (release_sem(p, &board));
-			// }
-			(void)print_board(p->opt & P_OPT_PRINTER ? board : NULL);
-			(void)do_turn(p, board);
-			printf("%x\n", getpid()); // DEBUG
+		puts("e");
 			if (am_i_dead(p, board))
 			{
-				puts("I AM DEAD"); // DEBUG
+				(void)print_board(board);
+				printf("I AM DEAD {team: %d, pid: %d}\n", p->team, getpid()); // DEBUG
 				this_is_the_end(p, board);
-				if (p->opt & P_OPT_PRINTER)
-				{
-					(void)unset_printer(p, board);
-				}
 				(void)erase_player(getpid(), p, board);
 				(void)player_suicide(p, board);
 				return (release_sem(p, &board));
 			}
 			else
+			{
+		puts("f");
+				if (board->opt & B_OPT_END)
+				{
+					(void)print_board(board);
+					(void)release_sem(p, &board);
+					return (i_win(p, board));
+				}
+		puts("g");
+				(void)print_board(board);
+		puts("h");
+				(void)do_turn(p, board);
+		puts("i");
 				(void)release_sem(p, &board);
+		puts("j");
+			}
+			usleep(TURN_WAIT);
 		}
 	}
 	return (0);
