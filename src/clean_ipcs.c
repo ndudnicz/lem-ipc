@@ -33,7 +33,9 @@ t_player *const p
 	// semop(p->ipcs.semid, &p->sem, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 	{
+		puts("clean_ipcs() exit");
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
+
 	}
 	else
 	{

@@ -72,7 +72,11 @@ t_board *const board
 	};
 
 	(void)init_h((t_u8*)h, (t_s32*)sides);
-	if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
+	if (board->b[p->y][p->x].opt & B_OPT_DEAD)
+	{
+		return (1);
+	}
+	else if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
 	{
 		// puts("stop sides 0");
 		// return (this_is_the_end(p, board));
@@ -119,7 +123,11 @@ t_board *board
 		semop(p->ipcs.semid, &sem, 1);
 		puts("d");
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
+		{
+			puts("lets_play() exit");
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
+
+		}
 		else
 		{
 		puts("e");

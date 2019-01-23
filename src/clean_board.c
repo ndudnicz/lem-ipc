@@ -63,7 +63,11 @@ t_board *board
 		p->sem.sem_op = -1;
 		semop(p->ipcs.semid, &p->sem, 1);
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
+		{
+			puts("erase_player() exit");
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
+
+		}
 		else
 		{
 			(void)clean_pid(pid, board);
