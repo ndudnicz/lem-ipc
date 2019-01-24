@@ -15,55 +15,29 @@
 
 #include "libftasm.h"
 #include "board.h"
-#include "debug.h"//
-#include "release_sem.h"
+#include "sem_manipulation.h"
 #include "mystdint.h"
-#include "libft.h"//
+#include "turn.h"
 
-t_s32	player_suicide(
+t_s32			player_suicide(
 t_player *const p,
 t_board *board
 )
 {
-	// puts("player_suicide()"); // DEBUG
 	if (board == NULL)
 	{
-		// puts("A"); // DEBUG
-		ft_memset(&p->sem, 0, sizeof(struct sembuf));
-		// puts("B"); // DEBUG
-		p->sem.sem_op = -1;
-		// puts("C"); // DEBUG
-		semop(p->ipcs.semid, &p->sem, IPC_NOWAIT);
-		// puts("D"); // DEBUG
+		(void)lock_sem(p, IPC_NOWAIT);
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
-		{
-			puts("player_suicide() exit");
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
-
-		}
 		else
 		{
-	// print_debug(p, board); // DEBUG
-			// puts("E"); // DEBUG
 			board->n_player -= board->n_player > 0 ? 1 : 0;
-			// puts("F"); // DEBUG
-			// print_debug(p, board);
-			// puts("G"); // DEBUG
-			shmdt(board);
-			// puts("H"); // DEBUG
-			board = NULL;
-			// puts("I"); // DEBUG
-			p->sem.sem_op = 1;
-			// puts("J"); // DEBUG
-			semop(p->ipcs.semid, &p->sem, 1);
-			// puts("K"); // DEBUG
+			release_sem(p, &board);
 		}
 	}
 	else
 	{
-		// puts("E"); // DEBUG
 		board->n_player -= board->n_player > 0 ? 1 : 0;
-		// puts("F"); // DEBUG
 	}
 	return (0);
 }
@@ -80,13 +54,6 @@ t_u16 const y
 	board->b[p->y][p->x].team = p->team;
 	board->b[p->y][p->x].pid = getpid();
 	board->b[p->y][p->x].opt = p->opt;
-	printf("set_player_coords: pid: %d {x: %hu, y: %hu}\n", getpid(), x, y);
-	ft_putnbr_fd(getpid(), 2);
-	ft_putchar_fd(' ', 2);
-	ft_putnbr_fd(p->x, 2);
-	ft_putchar_fd(' ', 2);
-	ft_putnbr_fd(p->y, 2);
-	ft_putchar_fd('\n', 2);
 	return (0);
 }
 
@@ -111,10 +78,7 @@ t_board *board
 				if (board->b[y][x].team < 0)
 					return (set_player_coords(p, board, x, y));
 				else
-				{
-					printf("{x: %hu, y: %hu} taken by: {pid: %d, team: %d}\n", x, y, board->b[y][x].pid, board->b[y][x].team);
 					x++;
-				}
 			}
 			y++;
 		}
@@ -124,25 +88,17 @@ t_board *board
 	return (0);
 }
 
-t_s32	spawn_on_board(
+t_s32			spawn_on_board(
 t_player *const p
 )
 {
 	t_board *board;
 
-	puts("spawn_on_board()");
-	ft_memset(&p->sem, 0, sizeof(struct sembuf));
-	p->sem.sem_op = -1;
-	semop(p->ipcs.semid, &p->sem, 1);
+	lock_sem(p, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
-	{
-		puts("spawn_on_board() exit");
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
-
-	}
 	else
 	{
-		puts("spawn_on_board() A");
 		if (board->n_player < BOARD_SIZE * BOARD_SIZE)
 		{
 			(void)select_an_empty_box(p, board);

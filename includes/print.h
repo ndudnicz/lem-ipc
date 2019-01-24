@@ -17,14 +17,4 @@ t_s32	print_board(
 t_board *board
 );
 
-// t_s32	set_printer(
-// t_player *p,
-// t_board *b
-// );
-//
-// t_s32	unset_printer(
-// t_player *p,
-// t_board *b
-// );
-//
 #endif

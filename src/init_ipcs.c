@@ -14,7 +14,6 @@
 #include <sys/shm.h>
 #include <sys/sem.h>
 #include <sys/msg.h>
-#include <stdio.h>// // DEBUG
 
 #include "board.h"
 #include "config.h"
@@ -22,6 +21,7 @@
 #include "config_ipcs.h"
 #include "play.h"
 #include "libftasm.h"
+#include "sem_manipulation.h"
 
 static t_s32	fill_board(
 t_board *const board
@@ -32,8 +32,6 @@ t_board *const board
 
 	y = 0;
 	ft_memset(board, 0, sizeof(t_board));
-	// puts("fill_board");// // DEBUG
-	// printf("board->n_player:%d\n", board->n_player);// // DEBUG
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -55,22 +53,13 @@ t_player *const p
 {
 	t_board			*board;
 
-	ft_memset(&p->sem, 0, sizeof(p->sem));
-	p->sem.sem_op = -1;
-	semop(p->ipcs.semid, &p->sem, 1);
+	lock_sem(p, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
-	{
-		puts("init_board() exit");
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
-
-	}
 	else
 	{
 		(void)fill_board(board);
-		shmdt(board);
-		board = NULL;
-		p->sem.sem_op = 1;
-		semop(p->ipcs.semid, &p->sem, 1);
+		release_sem(p, &board);
 	}
 	return (0);
 }
@@ -81,7 +70,6 @@ t_player *const p
 {
 	t_s32 const	first = shmget(IPCS_KEY, SHM_SIZE, SHM_FLAG_F) == -1 ? 0 : 1;
 
-	// puts("init_ipcs()"); // DEBUG
 	if (first == 0)
 	{
 		if ((p->ipcs.shmid = shmget(IPCS_KEY, SHM_SIZE, SHM_PERM)) == -1)
@@ -97,9 +85,9 @@ t_player *const p
 		if ((p->ipcs.shmid = shmget(IPCS_KEY, SHM_SIZE, SHM_PERM)) == -1)
 			exit(ft_error_ret("Error: ", FAIL_SHMGET, NULL, EXIT_FAILURE));
 		if ((p->ipcs.semid = semget(IPCS_KEY, 1, SEM_FLAG)) == -1)
-				exit(ft_error_ret("Error: ", FAIL_SEMGET, NULL, EXIT_FAILURE));
+			exit(ft_error_ret("Error: ", FAIL_SEMGET, NULL, EXIT_FAILURE));
 		if ((p->ipcs.msgid = msgget(IPCS_KEY, MSG_FLAG)) == -1)
-				exit(ft_error_ret("Error: ", FAIL_MSGGET, NULL, EXIT_FAILURE));
+			exit(ft_error_ret("Error: ", FAIL_MSGGET, NULL, EXIT_FAILURE));
 		semctl(p->ipcs.semid, 0, SETVAL, 1);
 		return (init_board(p));
 	}

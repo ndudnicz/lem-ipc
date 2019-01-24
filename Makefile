@@ -36,7 +36,7 @@ turn.c \
 select_move.c \
 can_move.c \
 win.c \
-release_sem.c \
+sem_manipulation.c \
 
 # OBJECTS LIST ================================================================#
 

@@ -26,7 +26,6 @@ typedef struct	s_msg
 	char	mtext[MSGSIZE];
 }				t_msg;
 
-
 t_s32			unforge_msg(
 t_msg *const msg,
 pid_t *const target

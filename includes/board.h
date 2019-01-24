@@ -43,7 +43,6 @@ typedef struct	s_board
 	t_box	b[BOARD_SIZE][BOARD_SIZE];
 }				t_board;
 
-
 typedef t_u16	t_player_coords;
 
 typedef struct	s_player

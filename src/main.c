@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <sys/types.h>
 #include <stdlib.h>
 #include <signal.h>
-// #include <time.h>
 
 #include "board.h"
 #include "play.h"
@@ -69,15 +67,10 @@ int				main(int ac, char **av)
 		error_main(&player, BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE);
 	else
 	{
-		puts("main A");
 		(void)init_ipcs(player);
-		puts("main B");
 		(void)spawn_on_board(player);
-		puts("main C");
 		(void)lets_play(player, NULL);
-		puts("main D");
 		(void)clean_ipcs(player);
-		puts("main E");
 		free(player);
 		return (0);
 	}

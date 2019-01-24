@@ -15,13 +15,6 @@
 #include "board.h"
 #include "turn.h"
 
-static	t_move moves[4] = {
-	&move_up,
-	&move_down,
-	&move_left,
-	&move_right
-};
-
 t_s32	move_up(
 t_player *const p,
 t_board *const board
@@ -108,13 +101,15 @@ t_board *const board,
 t_target_coord *const tcoords
 )
 {
-	t_s32 const	move = select_move(p, board, tcoords);
+	static t_move	moves[4] = {
+		&move_up,
+		&move_down,
+		&move_left,
+		&move_right
+	};
+	t_s32 const		move = select_move(p, board, tcoords);
 
-	// puts("do_move()"); // DEBUG
-	// printf("target: {x: %d, y: %d}\n", tcoords->x, tcoords->y); // DEBUG
 	if (move >= 0)
-	{
 		moves[move](p, board);
-	}
 	return (0);
 }

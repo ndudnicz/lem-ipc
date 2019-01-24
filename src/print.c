@@ -12,7 +12,6 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>//
 
 #include "config.h"
 #include "board.h"
@@ -32,7 +31,6 @@ t_board *const board
 	{
 		return (0);
 	}
-	// printf("pid:%d\n", getpid());// // DEBUG
 	while (y < BOARD_SIZE)
 	{
 		x = 0;
@@ -47,36 +45,5 @@ t_board *const board
 		ft_putchar('\n');
 		y++;
 	}
-	usleep(PRINT_WAIT);
 	return (!ft_putchar('\n'));
 }
-
-// t_s32	set_printer(
-// t_player *const p,
-// t_board *const b
-// )
-// {
-// 	// ft_putstr("set_printer\n"); // DEBUG
-// 	p->opt |= P_OPT_PRINTER;
-// 	b->opt |= B_OPT_PRINTER;
-// 	b->b[p->y][p->x].opt |= B_OPT_PRINTER;
-// 	return (0);
-// }
-//
-// t_s32	unset_printer(
-// t_player *const p,
-// t_board *const b
-// )
-// {
-// 	// ft_putstr("unset_printer\n"); // DEBUG
-// 	if (b && (b->opt & B_OPT_PRINTER))
-// 	{
-// 		b->opt ^= B_OPT_PRINTER;
-// 		if (p && (p->opt & P_OPT_PRINTER))
-// 		{
-// 			p->opt ^= P_OPT_PRINTER;
-// 			b->b[p->y][p->x].opt ^= B_OPT_PRINTER;
-// 		}
-// 	}
-// 	return (0);
-// }

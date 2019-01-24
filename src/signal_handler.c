@@ -18,6 +18,7 @@
 #include "clean_ipcs.h"
 #include "clean_board.h"
 #include "libftasm.h"
+#include "sem_manipulation.h"
 
 static t_s32	set_player_dead(
 t_player *p,
@@ -27,15 +28,9 @@ t_board *board
 	t_s32	x;
 	t_s32	y;
 
-	ft_memset(&p->sem, 0, sizeof(struct sembuf));
-	p->sem.sem_op = -1;
-	semop(p->ipcs.semid, &p->sem, IPC_NOWAIT);
+	(void)lock_sem(p, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
-	{
-
-			puts("set_player_dead() exit");
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
-	}
 	else
 	{
 		y = 0;
@@ -45,35 +40,23 @@ t_board *board
 			while (x < BOARD_SIZE)
 			{
 				if (board->b[y][x].pid == getpid())
-				{
 					board->b[y][x].opt |= B_OPT_DEAD;
-				}
 				x++;
 			}
 			y++;
 		}
-		shmdt(board);
-		board = NULL;
-		p->sem.sem_op = 1;
-		semop(p->ipcs.semid, &p->sem, 1);
+		(void)release_sem(p, &board);
 	}
 	return (0);
 }
 
-t_s32	signal_handler(
+t_s32			signal_handler(
 int sig
 )
 {
 	t_player	p;
 
-	if (sig == SIGINT)
-	{
-		init_ipcs(&p);
-		set_player_dead(&p, NULL);
-		return (0);
-	}
-	else
-	{
-		return (0);
-	}
+	(void)init_ipcs(&p);
+	(void)set_player_dead(&p, NULL);
+	return (0);
 }

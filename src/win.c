@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   win.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndudnicz <ndudnicz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/24 14:52:16 by ndudnicz          #+#    #+#             */
+/*   Updated: 2019/01/24 14:52:19 by ndudnicz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 
@@ -13,7 +25,6 @@ t_board *const board
 	t_s32		other;
 	pid_t const	pid = getpid();
 
-	puts("this_is_the_end()");
 	y = 0;
 	other = -1;
 	while (y < BOARD_SIZE)
@@ -24,21 +35,15 @@ t_board *const board
 			if (board->b[y][x].team >= 0 && board->b[y][x].pid != pid)
 			{
 				if (other == -1)
-				{
 					other = board->b[y][x].team;
-				}
 				else if (other != board->b[y][x].team)
-				{
-				puts("no");
 					return (1);
-				}
 			}
 			x++;
 		}
 		y++;
 	}
 	board->opt |= B_OPT_END;
-				puts("yes");
 	return (1);
 }
 

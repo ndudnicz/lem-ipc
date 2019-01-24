@@ -26,7 +26,7 @@
 #include "debug.h"
 #include "clean_board.h"
 #include "win.h"
-#include "release_sem.h"
+#include "sem_manipulation.h"
 
 static t_s32	init_h(
 t_u8 *const h,
@@ -41,17 +41,15 @@ t_s32 *const sides
 	h[sides[1]]++;
 	h[sides[2]]++;
 	h[sides[3]]++;
-	printf("sides[0]: %d, sides[1]: %d, sides[2]: %d, sides[3]: %d\n", sides[0], sides[1], sides[2], sides[3]);
 	return (0);
 }
-
 
 static t_s32	am_i_dead(
 t_player *const p,
 t_board *const board
 )
 {
-	t_u8		h[SHORTMAX + 1];
+	t_u8		h[USHORTMAX + 1];
 	t_s32 const	sides[4] = {
 		check_left(p, board),
 		check_right(p, board),
@@ -61,37 +59,17 @@ t_board *const board
 
 	(void)init_h((t_u8*)h, (t_s32*)sides);
 	if (board->b[p->y][p->x].opt & B_OPT_DEAD)
-	{
 		return (1);
-	}
-	else if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
-	{
-		puts("stop sides 0");
-		// return (this_is_the_end(p, board));
+	else if (sides[0] < USHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
 		return (1);
-	}
-	else if (sides[1] < SHORTMAX && p->team != sides[1] && h[sides[1]] > 1)
-	{
-		puts("stop sides 1");
-		// return (this_is_the_end(p, board));
+	else if (sides[1] < USHORTMAX && p->team != sides[1] && h[sides[1]] > 1)
 		return (1);
-	}
-	else if (sides[2] < SHORTMAX && p->team != sides[2] && h[sides[2]] > 1)
-	{
-		puts("stop sides 2");
-		// return (this_is_the_end(p, board));
+	else if (sides[2] < USHORTMAX && p->team != sides[2] && h[sides[2]] > 1)
 		return (1);
-	}
-	else if (sides[3] < SHORTMAX && p->team != sides[3] && h[sides[3]] > 1)
-	{
-		puts("stop sides 3");
-		// return (this_is_the_end(p, board));
+	else if (sides[3] < USHORTMAX && p->team != sides[3] && h[sides[3]] > 1)
 		return (1);
-	}
 	else
-	{
 		return (0);
-	}
 }
 
 t_s32			lets_play(
@@ -103,47 +81,21 @@ t_board *board
 
 	while (1)
 	{
-		puts("a");
-		ft_memset(&sem, 0, sizeof(struct sembuf));
-		puts("b");
-		sem.sem_op = -1;
-		puts("c");
-		semop(p->ipcs.semid, &sem, 1);
-		puts("d");
+		lock_sem(p, 1);
 		if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
-		{
-			puts("lets_play() exit");
 			exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
-
-		}
 		else
 		{
-		puts("e");
-			if (am_i_dead(p, board))
-			{
-				(void)print_board(board);
-				printf("I AM DEAD {team: %d, pid: %d}\n", p->team, getpid()); // DEBUG
-				this_is_the_end(p, board);
-				(void)erase_player(getpid(), p, board);
-				(void)player_suicide(p, board);
+			(void)print_board(board);
+			if (am_i_dead(p, board) && erase_player(getpid(), p, board) == 0 &&
+			player_suicide(p, board) == 0)
 				return (release_sem(p, &board));
-			}
 			else
 			{
-		puts("f");
 				if (board->opt & B_OPT_END)
-				{
-					(void)print_board(board);
-					(void)release_sem(p, &board);
-					return (i_win(p, board));
-				}
-		puts("g");
-				(void)print_board(board);
-		puts("h");
+					return (release_sem(p, &board) || i_win(p, board));
 				(void)do_turn(p, board);
-		puts("i");
 				(void)release_sem(p, &board);
-		puts("j");
 			}
 			usleep(TURN_WAIT);
 		}

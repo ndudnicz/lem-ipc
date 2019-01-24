@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   win.h                                              :+:      :+:    :+:   */
+/*   sem_manipulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndudnicz <ndudnicz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/24 15:03:38 by ndudnicz          #+#    #+#             */
-/*   Updated: 2019/01/24 15:03:39 by ndudnicz         ###   ########.fr       */
+/*   Created: 2019/01/24 14:52:32 by ndudnicz          #+#    #+#             */
+/*   Updated: 2019/01/24 14:52:33 by ndudnicz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WIN_H
-# define WIN_H
+#include <sys/sem.h>
+#include <stdlib.h>
 
-t_s32	this_is_the_end(
+#include "board.h"
+#include "mystdint.h"
+#include "libftasm.h"
+
+t_s32	lock_sem(
 t_player *const p,
-t_board *const board
-);
+int semflag
+)
+{
+	ft_memset(&p->sem, 0, sizeof(struct sembuf));
+	p->sem.sem_op = -1;
+	semop(p->ipcs.semid, &p->sem, semflag);
+	return (0);
+}
 
-t_s32	i_win(
+t_s32	release_sem(
 t_player *const p,
-t_board *const board
-);
-
-#endif
+t_board **board
+)
+{
+	shmdt(*board);
+	*board = NULL;
+	p->sem.sem_op = 1;
+	semop(p->ipcs.semid, &p->sem, 1);
+	return (0);
+}
