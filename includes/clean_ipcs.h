@@ -13,6 +13,10 @@
 #ifndef CLEAN_IPCS_H
 # define CLEAN_IPCS_H
 
+t_s32	ctl_all(
+t_player *const p
+);
+
 t_s32	clean_ipcs(
 t_player *const p
 );

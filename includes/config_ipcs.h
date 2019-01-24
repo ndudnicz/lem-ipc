@@ -16,9 +16,6 @@
 # include <sys/ipc.h>
 # include <sys/shm.h>
 
-# include "config.h"
-# include "error.h"
-
 # define IPCS_KEY	0x00e1d220
 
 # define SHM_SIZE	(sizeof(t_board))
@@ -31,6 +28,8 @@
 
 # define MSG_PERM	0666
 # define MSG_FLAG	(IPC_CREAT | IPC_EXCL | MSG_PERM)
+
+# define SEMOP_TIMEOUT_VALUE	2
 
 typedef struct	s_ipcs_config
 {

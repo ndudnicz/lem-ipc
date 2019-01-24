@@ -10,21 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/sem.h>
-#include <stdlib.h>
-
 #include "board.h"
-#include "mystdint.h"
 #include "libftasm.h"
+#include "clean_ipcs.h"
 
 t_s32	lock_sem(
 t_player *const p,
 int semflag
 )
 {
+	alarm(SEMOP_TIMEOUT_VALUE);
 	ft_memset(&p->sem, 0, sizeof(struct sembuf));
 	p->sem.sem_op = -1;
-	semop(p->ipcs.semid, &p->sem, semflag);
+	if (semop(p->ipcs.semid, &p->sem, semflag) < 0)
+	{
+		(void)ctl_all(p);
+	}
+	alarm(0);
 	return (0);
 }
 

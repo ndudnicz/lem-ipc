@@ -15,9 +15,19 @@
 #include <sys/msg.h>
 #include <stdlib.h>
 
-#include "mylimits.h"
 #include "board.h"
 #include "sem_manipulation.h"
+#include "error.h"
+
+t_s32	ctl_all(
+t_player *const p
+)
+{
+	shmctl(p->ipcs.shmid, IPC_RMID, NULL);
+	semctl(p->ipcs.semid, IPC_RMID, 0);
+	msgctl(p->ipcs.msgid, IPC_RMID, 0);
+	return (0);
+}
 
 t_s32	clean_ipcs(
 t_player *const p
@@ -32,9 +42,7 @@ t_player *const p
 	{
 		if (board->n_player < 1)
 		{
-			shmctl(p->ipcs.shmid, IPC_RMID, NULL);
-			semctl(p->ipcs.semid, IPC_RMID, 0);
-			msgctl(p->ipcs.msgid, IPC_RMID, 0);
+			(void)ctl_all(p);
 		}
 		release_sem(p, &board);
 		return (0);

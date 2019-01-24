@@ -13,12 +13,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "libftasm.h"
 #include "mystdint.h"
 #include "board.h"
-#include "print.h"
 #include "sem_manipulation.h"
 #include "win.h"
+#include "error.h"
 
 t_s32	clean_pid(
 pid_t const pid,

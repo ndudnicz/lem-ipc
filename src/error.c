@@ -12,8 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "error.h"
+//
 #include "mystdint.h"
 #include "libftasm.h"
 

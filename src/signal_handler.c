@@ -16,9 +16,8 @@
 #include "board.h"
 #include "init_ipcs.h"
 #include "clean_ipcs.h"
-#include "clean_board.h"
-#include "libftasm.h"
 #include "sem_manipulation.h"
+#include "error.h"
 
 static t_s32	set_player_dead(
 t_player *p,
@@ -56,8 +55,12 @@ int sig
 {
 	t_player	p;
 
-	sig = 0;
 	(void)init_ipcs(&p);
+	if (sig == SIGALRM)
+	{
+		(void)ctl_all(&p);
+		(void)ft_error_ret("Error: ", SEMOP_TIMEOUT, NULL, EXIT_FAILURE);
+	}
 	(void)set_player_dead(&p, NULL);
 	return (0);
 }

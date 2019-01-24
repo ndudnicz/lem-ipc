@@ -11,13 +11,9 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <unistd.h>
 
-#include "config.h"
 #include "board.h"
-#include "mystdint.h"
 #include "libftasm.h"
-#include "board.h"
 
 t_s32	print_board(
 t_board *const board

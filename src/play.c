@@ -10,22 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/sem.h>
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "board.h"
 #include "libftasm.h"
 #include "libft.h"
 #include "mylimits.h"
-#include "board.h"
 #include "check_sides.h"
-#include "mylimits.h"
 #include "libftasm.h"
 #include "print.h"
 #include "turn.h"
 #include "clean_board.h"
 #include "win.h"
 #include "sem_manipulation.h"
+#include "error.h"
 
 static t_s32	init_h(
 t_u8 *const h,
@@ -86,7 +85,10 @@ t_board *board
 			(void)print_board(board);
 			if (am_i_dead(p, board) && erase_player(getpid(), p, board) == 0 &&
 			player_suicide(p, board) == 0)
+			{
+				ft_putendl("I AM DEAD");
 				return (release_sem(p, &board));
+			}
 			else
 			{
 				if (board->opt & B_OPT_END)

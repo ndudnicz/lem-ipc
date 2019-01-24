@@ -11,17 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <sys/shm.h>
-#include <sys/sem.h>
 #include <sys/msg.h>
-
+//
 #include "board.h"
-#include "config.h"
-#include "error.h"
-#include "config_ipcs.h"
-#include "play.h"
 #include "libftasm.h"
 #include "sem_manipulation.h"
+#include "error.h"
 
 static t_s32	fill_board(
 t_board *const board

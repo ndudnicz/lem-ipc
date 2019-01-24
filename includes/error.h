@@ -25,6 +25,7 @@
 # define FAIL_MALLOC "Can't shmat().\n"
 # define FAIL_MSGSND "Can't msgsnd().\n"
 # define FAIL_MSGRCV "Can't msgrcv().\n"
+# define SEMOP_TIMEOUT "semop() timeout.\n"
 
 t_s32	ft_error_ret(
 char const *const s1,

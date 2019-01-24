@@ -11,13 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <sys/msg.h>
 #include <errno.h>
 
-#include "libftasm.h"
-#include "error.h"
 #include "board.h"
 #include "msg.h"
+#include "clean_ipcs.h"
+#include "error.h"
 
 static t_s32	get_mtype(
 t_player *const player
@@ -59,6 +58,7 @@ t_msg *const msg
 {
 	if ((msgsnd(player->ipcs.msgid, msg, MSGSIZE, 0)) < 0)
 	{
+		(void)ctl_all(player);
 		exit(ft_error_ret("Error: ", FAIL_MSGSND, NULL, EXIT_FAILURE));
 	}
 	else
@@ -77,6 +77,7 @@ t_msg *const msg
 	{
 		if (errno && errno != ENOMSG)
 		{
+			(void)ctl_all(player);
 			exit(ft_error_ret("Error: ", FAIL_MSGRCV, NULL, EXIT_FAILURE));
 		}
 		else

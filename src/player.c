@@ -13,11 +13,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "libftasm.h"
 #include "board.h"
 #include "sem_manipulation.h"
-#include "mystdint.h"
 #include "turn.h"
+#include "error.h"
 
 t_s32			player_suicide(
 t_player *const p,

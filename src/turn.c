@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mystdint.h"
 #include "board.h"
 #include "msg.h"
 #include "turn.h"
-#include "print.h"
 
 static t_s32	find_target(
 pid_t const target,
