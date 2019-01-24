@@ -17,6 +17,7 @@
 #include "init_ipcs.h"
 #include "clean_ipcs.h"
 #include "clean_board.h"
+#include "libftasm.h"
 
 static t_s32	set_player_dead(
 t_player *p,
@@ -28,7 +29,7 @@ t_board *board
 
 	ft_memset(&p->sem, 0, sizeof(struct sembuf));
 	p->sem.sem_op = -1;
-	semop(p->ipcs.semid, &p->sem, 1);
+	semop(p->ipcs.semid, &p->sem, IPC_NOWAIT);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 	{
 
@@ -37,7 +38,6 @@ t_board *board
 	}
 	else
 	{
-		board->n_player -= board->n_player > 0 ? 1 : 0;
 		y = 0;
 		while (y < BOARD_SIZE)
 		{
@@ -57,7 +57,7 @@ t_board *board
 		p->sem.sem_op = 1;
 		semop(p->ipcs.semid, &p->sem, 1);
 	}
-
+	return (0);
 }
 
 t_s32	signal_handler(
@@ -70,10 +70,6 @@ int sig
 	{
 		init_ipcs(&p);
 		set_player_dead(&p, NULL);
-		// erase_player(getpid(), &p, NULL);
-		// player_suicide(&p, NULL);
-		// clean_ipcs(&p);
-		// exit(EXIT_SUCCESS);
 		return (0);
 	}
 	else

@@ -14,7 +14,7 @@
 # define CONFIG_H
 
 # define BOARD_SIZE		10
-# define PRINT_WAIT		9999
-# define TURN_WAIT		9999
+# define PRINT_WAIT		999
+# define TURN_WAIT		999990
 
 #endif

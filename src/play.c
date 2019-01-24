@@ -26,19 +26,7 @@
 #include "debug.h"
 #include "clean_board.h"
 #include "win.h"
-
-static t_s32	release_sem(
-t_player *const p,
-t_board **board
-)
-{
-	puts("release sem");
-	shmdt(*board);
-	*board = NULL;
-	p->sem.sem_op = 1;
-	semop(p->ipcs.semid, &p->sem, 1);
-	return (0);
-}
+#include "release_sem.h"
 
 static t_s32	init_h(
 t_u8 *const h,
@@ -53,7 +41,7 @@ t_s32 *const sides
 	h[sides[1]]++;
 	h[sides[2]]++;
 	h[sides[3]]++;
-	// printf("left: %d, right: %d, up: %d, down: %d\n", sides[0], sides[1], sides[2], sides[3]);
+	printf("sides[0]: %d, sides[1]: %d, sides[2]: %d, sides[3]: %d\n", sides[0], sides[1], sides[2], sides[3]);
 	return (0);
 }
 
@@ -78,25 +66,25 @@ t_board *const board
 	}
 	else if (sides[0] < SHORTMAX && p->team != sides[0] && h[sides[0]] > 1)
 	{
-		// puts("stop sides 0");
+		puts("stop sides 0");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}
 	else if (sides[1] < SHORTMAX && p->team != sides[1] && h[sides[1]] > 1)
 	{
-		// puts("stop sides 1");
+		puts("stop sides 1");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}
 	else if (sides[2] < SHORTMAX && p->team != sides[2] && h[sides[2]] > 1)
 	{
-		// puts("stop sides 2");
+		puts("stop sides 2");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}
 	else if (sides[3] < SHORTMAX && p->team != sides[3] && h[sides[3]] > 1)
 	{
-		// puts("stop sides 3");
+		puts("stop sides 3");
 		// return (this_is_the_end(p, board));
 		return (1);
 	}

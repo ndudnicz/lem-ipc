@@ -13,7 +13,7 @@ t_board *const board
 	t_s32		other;
 	pid_t const	pid = getpid();
 
-	puts("this_is_the_end");
+	puts("this_is_the_end()");
 	y = 0;
 	other = -1;
 	while (y < BOARD_SIZE)
@@ -29,6 +29,7 @@ t_board *const board
 				}
 				else if (other != board->b[y][x].team)
 				{
+				puts("no");
 					return (1);
 				}
 			}
@@ -37,7 +38,7 @@ t_board *const board
 		y++;
 	}
 	board->opt |= B_OPT_END;
-				puts("B");
+				puts("yes");
 	return (1);
 }
 
