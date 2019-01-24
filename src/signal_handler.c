@@ -56,6 +56,7 @@ int sig
 {
 	t_player	p;
 
+	sig = 0;
 	(void)init_ipcs(&p);
 	(void)set_player_dead(&p, NULL);
 	return (0);

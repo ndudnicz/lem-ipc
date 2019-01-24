@@ -23,7 +23,6 @@
 #include "libftasm.h"
 #include "print.h"
 #include "turn.h"
-#include "debug.h"
 #include "clean_board.h"
 #include "win.h"
 #include "sem_manipulation.h"
@@ -77,8 +76,6 @@ t_player *const p,
 t_board *board
 )
 {
-	struct sembuf	sem;
-
 	while (1)
 	{
 		lock_sem(p, 1);

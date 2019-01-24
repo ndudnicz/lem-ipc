@@ -14,7 +14,7 @@
 # define TURN_H
 
 # define PRINT_WAIT		999
-# define TURN_WAIT		60000
+# define TURN_WAIT		150000
 
 # define MOVE_UP	0
 # define MOVE_DOWN	1

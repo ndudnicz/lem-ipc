@@ -61,14 +61,14 @@ t_board *board
 		else
 		{
 			(void)clean_pid(pid, board);
-			(void)this_is_the_end(p, board);
+			(void)this_is_the_end(board);
 			(void)release_sem(p, &board);
 		}
 	}
 	else
 	{
 		(void)clean_pid(pid, board);
-		(void)this_is_the_end(p, board);
+		(void)this_is_the_end(board);
 	}
 	return (0);
 }
