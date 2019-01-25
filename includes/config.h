@@ -13,6 +13,6 @@
 #ifndef CONFIG_H
 # define CONFIG_H
 
-# define BOARD_SIZE		51
+# define BOARD_SIZE		20
 
 #endif

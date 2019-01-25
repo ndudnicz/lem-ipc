@@ -18,7 +18,7 @@
 # include "config_ipcs.h"
 # include <sys/sem.h>
 
-# if BOARD_SIZE <= 0
+# if BOARD_SIZE <= 1
 #  error BOARD_SIZE wrong value.
 # endif
 

@@ -28,7 +28,7 @@ t_board *board
 	t_s32	y;
 
 	(void)lock_sem(p, 1);
-	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
+	if ((int)(board = (t_board*)shmat(p->ipcs.shmid, NULL, 0)) < 0)
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 	else
 	{

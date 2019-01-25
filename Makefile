@@ -1,6 +1,6 @@
 NAME = lemipc
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -std=c89# -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -std=c89
 DEBUGFLAGS = #-fsanitize=address -g3
 
 # SOURCE FOLDERS ==============================================================#
