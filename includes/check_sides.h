@@ -14,23 +14,23 @@
 # define CHECK_SIDES_H
 
 t_u32	check_left(
-	t_player const *const p,
-	t_board const *const b
+t_player const *const p,
+t_board const *const b
 );
 
 t_u32	check_right(
-	t_player const *const p,
-	t_board const *const b
+t_player const *const p,
+t_board const *const b
 );
 
 t_u32	check_up(
-	t_player const *const p,
-	t_board const *const b
+t_player const *const p,
+t_board const *const b
 );
 
 t_u32	check_down(
-	t_player const *const p,
-	t_board const *const b
+t_player const *const p,
+t_board const *const b
 );
 
 #endif
