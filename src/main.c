@@ -69,6 +69,8 @@ int				main(int ac, char **av)
 	size_t		result;
 	t_player	*player;
 
+	if (BOARD_SIZE > 2000)
+		exit(ft_error_ret("Error: ", BOARD_SIZE_TOO_BIG, NULL, EXIT_FAILURE));
 	if ((player = (t_player*)ft_calloc(sizeof(t_player))) == NULL)
 		exit(ft_error_ret("Error: ", FAIL_MALLOC, NULL, EXIT_FAILURE));
 	(void)setup_signal();

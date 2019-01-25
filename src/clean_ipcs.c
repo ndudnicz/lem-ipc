@@ -37,7 +37,10 @@ t_player *const p
 
 	lock_sem(p, 1);
 	if ((int)(board = (t_board *)shmat(p->ipcs.shmid, NULL, 0)) < 0)
+	{
+		(void)ctl_all(p);
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
+	}
 	else
 	{
 		if (board->n_player < 1)

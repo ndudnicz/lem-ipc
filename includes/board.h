@@ -20,7 +20,9 @@
 
 # if BOARD_SIZE <= 0
 #  error BOARD_SIZE wrong value.
-# elseif BOARD_SIZE > 2000
+# endif
+
+# if BOARD_SIZE > 50
 #  error BOARD_SIZE too high.
 # endif
 

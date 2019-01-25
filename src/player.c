@@ -98,7 +98,7 @@ t_player *const p
 		exit(ft_error_ret("Error: ", FAIL_SHMAT, NULL, EXIT_FAILURE));
 	else
 	{
-		if (board->n_player < BOARD_SIZE * BOARD_SIZE)
+		if ((t_s32)board->n_player < BOARD_SIZE * BOARD_SIZE)
 		{
 			(void)select_an_empty_box(p, board);
 			(void)release_sem(p, &board);
