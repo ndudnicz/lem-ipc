@@ -38,6 +38,11 @@ t_board **board
 	shmdt(*board);
 	*board = NULL;
 	p->sem.sem_op = 1;
-	semop(p->ipcs.semid, &p->sem, 1);
+	alarm(SEMOP_TIMEOUT_VALUE);
+	if (semop(p->ipcs.semid, &p->sem, 1) < 0)
+	{
+		(void)ctl_all(p);
+	}
+	alarm(0);
 	return (0);
 }

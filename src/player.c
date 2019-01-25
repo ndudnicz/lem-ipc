@@ -31,7 +31,7 @@ t_board *board
 		else
 		{
 			board->n_player -= board->n_player > 0 ? 1 : 0;
-			release_sem(p, &board);
+			(void)release_sem(p, &board);
 		}
 	}
 	else

@@ -33,12 +33,12 @@ t_board *const board
 		while (x < BOARD_SIZE)
 		{
 			if (board->b[y][x].team == -1)
-				ft_putchar('-');
+				(void)ft_putchar('-');
 			else
-				ft_putchar((board->b[y][x].team % 10) + 48);
+				(void)ft_putchar((board->b[y][x].team % 10) + 48);
 			x++;
 		}
-		ft_putchar('\n');
+		(void)ft_putchar('\n');
 		y++;
 	}
 	return (!ft_putchar('\n'));
