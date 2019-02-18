@@ -22,7 +22,7 @@
 # define FAIL_SEMGET "Can't semget().\n"
 # define FAIL_MSGGET "Can't msgget().\n"
 # define FAIL_SHMAT "Can't shmat().\n"
-# define FAIL_MALLOC "Can't shmat().\n"
+# define FAIL_MALLOC "Can't malloc().\n"
 # define FAIL_MSGSND "Can't msgsnd().\n"
 # define FAIL_MSGRCV "Can't msgrcv().\n"
 # define SEMOP_TIMEOUT "semop() timeout.\n"
